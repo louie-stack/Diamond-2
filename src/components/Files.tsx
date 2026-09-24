@@ -1,5 +1,9 @@
-import { CA, FAQ, LINKS, MEMES, TOKENOMICS } from "@/content";
+import { LINKS, TOKENOMICS } from "@/content";
 import { Diamond } from "./Diamond";
+import CopyCA from "./CopyCA";
+import Faq from "./Faq";
+import MemeWall from "./MemeWall";
+import { Tear } from "./Tear";
 
 /* ---------------------------------------------------------------- */
 /* Section 6. No tricks, as a declassified memo.                      */
@@ -51,7 +55,7 @@ export function Declassified() {
             </p>
 
             {/* the numbers */}
-            <div className="mt-10 grid gap-[3px] border-[3px] border-[var(--ink)] bg-[var(--ink)] sm:grid-cols-2 lg:grid-cols-6">
+            <div className="mt-10 grid gap-[3px] border-[3px] border-[var(--ink)] bg-[var(--ink)] sm:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr_1fr_1fr]">
               {[
                 ["1,000,000,000", "$DIAMOND, fixed supply"],
                 ["100%", "genesis liquidity"],
@@ -59,8 +63,10 @@ export function Declassified() {
                 ["0%", "presale"],
                 ["0%", "transfer tax"],
               ].map(([v, k], i) => (
-                <div key={k} className={`bg-[var(--cream)] px-5 py-6 ${i === 0 ? "sm:col-span-2" : ""}`} data-fx="rise" data-fx-delay={i * 0.06}>
-                  <p className="f-slab text-[44px] leading-none">{v}</p>
+                <div key={k} className={`bg-[var(--cream)] px-5 py-6 ${i === 0 ? "sm:col-span-2 lg:col-span-1" : ""}`} data-fx="rise" data-fx-delay={i * 0.06}>
+                  <p className={`f-slab leading-none ${i === 0 ? "text-[34px] sm:text-[40px]" : "text-[44px]"}`}>
+                    {i === 0 ? <span data-count="1000000000">0</span> : v}
+                  </p>
                   <p className="label mt-2 opacity-70">{k}</p>
                 </div>
               ))}
@@ -75,6 +81,23 @@ export function Declassified() {
                 </li>
               ))}
             </ul>
+
+            <div className="mt-10 border-[3px] border-dashed border-[var(--ink)]/50 px-5 py-5" data-fx="rise">
+              <p className="label opacity-60">Owner privileges on file. Hover to unredact.</p>
+              <dl className="type mt-3 grid gap-2 text-[16px] sm:grid-cols-2">
+                {[
+                  ["Adjustable sell limit", "None. Fixed at 1%."],
+                  ["Adjustable cooldown", "None. Fixed at 24h."],
+                  ["Holder whitelist", "None."],
+                  ["Owner switch", "None. Nothing to flip."],
+                ].map(([k, v]) => (
+                  <div key={k} className="flex flex-wrap items-baseline gap-x-3">
+                    <dt className="opacity-70">{k}:</dt>
+                    <dd className="redact m-0" tabIndex={0}>{v}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
 
             <p className="f-type mt-10 text-[18px] uppercase tracking-[0.06em]" data-fx="type">
               Once live, the mechanism is the mechanism.
@@ -157,29 +180,8 @@ export function Transcript() {
           </p>
         </div>
 
-        <div className="redline mt-12 border-[3px] border-[var(--ink)] bg-[var(--cream)] shadow-[8px_8px_0_var(--ink)]" data-fx="rise">
-          {FAQ.map((f, i) => (
-            <details key={f.q} className="transcript group border-b-[3px] border-[var(--ink)] last:border-b-0" open={i === 0}>
-              <summary className="flex items-start gap-5 px-5 py-6 pl-12 sm:px-8 sm:pl-14">
-                <span className="f-type mt-1 w-12 shrink-0 text-[13px] uppercase tracking-[0.1em] text-[var(--red)]">
-                  Q.{String(i + 1).padStart(2, "0")}
-                </span>
-                <span className="headline flex-1 text-[22px] sm:text-[28px]">{f.q}</span>
-                <span className="q-mark f-cond mt-[-2px] text-[34px] font-black leading-none transition-transform duration-200">+</span>
-              </summary>
-              <div className="px-5 pb-8 pl-12 sm:px-8 sm:pl-14">
-                <div className="flex gap-5">
-                  <span className="f-type mt-1 w-12 shrink-0 text-[13px] uppercase tracking-[0.1em] opacity-60">A.</span>
-                  <div className="flex-1">
-                    <p className="type max-w-[720px] text-[17px]">{f.a}</p>
-                    {f.cta && (
-                      <a href={LINKS.contract} className="btn btn--orange mt-6">View contract</a>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </details>
-          ))}
+        <div className="mt-12" data-fx="rise">
+          <Faq />
         </div>
       </div>
     </section>
@@ -208,10 +210,12 @@ export function Locker() {
             <div key={t.k} className="relative pt-6" data-fx="card" data-rot={(i % 3) - 1 + (i % 2 ? 0.6 : -0.4)} data-fx-delay={i * 0.06}>
               {/* string */}
               <span className="absolute left-1/2 top-0 h-6 w-px -translate-x-1/2 bg-[var(--paper)]/60" />
-              <div className="relative bg-[var(--manila)] px-6 pb-7 pt-8 text-[var(--ink)] shadow-[6px_8px_0_rgba(0,0,0,0.5)] [clip-path:polygon(0_0,100%_0,100%_100%,0_100%)]">
+              <div className="tag-sway relative bg-[var(--manila)] px-6 pb-7 pt-8 text-[var(--ink)] shadow-[6px_8px_0_rgba(0,0,0,0.5)]">
                 <span className="absolute left-1/2 top-3 h-3 w-3 -translate-x-1/2 rounded-full border-2 border-[var(--ink)]/50 bg-[#2a1a10]" />
                 <p className="label mt-2 opacity-70">{t.k}</p>
-                <p className={`f-slab mt-3 leading-none ${t.v.length > 8 ? "text-[30px] lg:text-[32px]" : "text-[56px]"}`}>{t.v}</p>
+                <p className={`f-slab mt-3 leading-none ${t.v.length > 8 ? "text-[30px] lg:text-[32px]" : "text-[56px]"}`}>
+                  {i === 0 ? <span data-count="1000000000">0</span> : t.v}
+                </p>
                 <p className="type mt-3 text-[14px] opacity-80">{t.s}</p>
               </div>
             </div>
@@ -262,14 +266,17 @@ export function CaseClosed() {
           <a href={LINKS.telegram} className="btn btn--ghost">Telegram</a>
           <a href={LINKS.contract} className="btn btn--ghost">Verified contract</a>
         </div>
-        <p className="f-type mt-8 break-all text-[13px] text-[var(--paper)]/60" data-fx="rise">CA: {CA}</p>
+        <div className="mt-8 flex justify-center" data-fx="rise">
+          <CopyCA center />
+        </div>
 
         <div className="mt-16 flex justify-center">
-          <span className="stamp stamp--dark stamp--double !text-[36px] sm:!text-[64px]" data-fx="stamp" data-rot="-7" data-fx-delay="0.3">
+          <span className="stamp stamp--dark stamp--double !text-[36px] sm:!text-[64px]" data-fx="stamp" data-rot="-7" data-fx-delay="0.3" data-confetti="1">
             Case closed
           </span>
         </div>
       </div>
+      <Tear color="var(--paper)" className="absolute bottom-0 left-0 z-[2]" />
     </section>
   );
 }
@@ -278,7 +285,6 @@ export function CaseClosed() {
 /* Section 11. Memes, as surveillance photos.                         */
 /* ---------------------------------------------------------------- */
 export function Surveillance() {
-  const rots = [-3, 2, -1.5, 2.5, -2, 1, -2.5, 3, -1];
   return (
     <section className="halftone halftone--fade overflow-hidden bg-[var(--paper)] py-24 lg:py-32">
       <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-10">
@@ -292,26 +298,7 @@ export function Surveillance() {
           </p>
         </div>
 
-        <div className="mt-16 grid gap-10 sm:grid-cols-2 lg:grid-cols-3 lg:gap-12">
-          {MEMES.map((m, i) => (
-            <a
-              key={m.src}
-              href={m.src}
-              download
-              className="polaroid relative block"
-              style={{ transform: `rotate(${rots[i]}deg)` }}
-              data-fx="flash"
-              data-fx-delay={(i % 3) * 0.1}
-            >
-              <span className="tape -top-3 left-1/2 -translate-x-1/2" style={{ transform: `translateX(-50%) rotate(${-rots[i] * 1.5}deg)` }} />
-              <img src={m.src} alt={m.cap} className="photo block aspect-[4/3] w-full object-cover" loading="lazy" />
-              <div className="flex items-center justify-between px-1 pt-4">
-                <span className="f-type text-[14px]">{m.cap}</span>
-                <span className="label !text-[10px] opacity-50">Save</span>
-              </div>
-            </a>
-          ))}
-        </div>
+        <MemeWall />
       </div>
     </section>
   );
@@ -322,8 +309,9 @@ export function Surveillance() {
 /* ---------------------------------------------------------------- */
 export function Footer() {
   return (
-    <footer className="border-t-[3px] border-[var(--ink)] bg-[var(--ink)] py-14 text-[var(--cream)]">
-      <div className="mx-auto grid max-w-[1440px] gap-10 px-4 sm:px-6 lg:grid-cols-[1fr_1.2fr] lg:px-10">
+    <footer className="relative overflow-hidden border-t-[3px] border-[var(--ink)] bg-[var(--ink)] pb-10 pt-14 text-[var(--cream)]">
+      <div className="watermark pointer-events-none absolute -bottom-6 left-0 whitespace-nowrap text-[26vw] lg:text-[22vw]">$DIAMOND</div>
+      <div className="relative mx-auto grid max-w-[1440px] gap-10 px-4 sm:px-6 lg:grid-cols-[1fr_1.2fr] lg:px-10">
         <div>
           <div className="flex items-center gap-3">
             <Diamond className="h-8 w-8" />
@@ -346,6 +334,9 @@ export function Footer() {
           <p className="label mt-6 text-[var(--paper)]/50">© 2026 Diamond Hands. Case file No. 001.</p>
         </div>
       </div>
+      <p className="f-type relative mx-auto mt-16 max-w-[1440px] px-4 text-[12px] uppercase tracking-[0.2em] text-[var(--paper)]/35 sm:px-6 lg:px-10" data-fx="type">
+        End of file. Hold the line.
+      </p>
     </footer>
   );
 }

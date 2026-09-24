@@ -270,3 +270,103 @@ details.transcript[open] .q-mark { transform: rotate(45deg); }
 @media (prefers-reduced-motion: reduce) {
   .grain, .ticker__track { animation: none; }
 }
+
+/* ---------- polish pass ---------- */
+.f-hand { font-family: var(--font-hand), "Comic Sans MS", cursive; }
+:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; }
+
+/* cold open */
+.loader { position: fixed; inset: 0; z-index: 200; background: #0b0908; color: var(--cream); display: grid; place-items: center; }
+.loader__flash { position: absolute; inset: 0; background: #fff; opacity: 0; pointer-events: none; }
+
+/* nav */
+.nav-bar { transition: transform 0.35s cubic-bezier(.2,.8,.2,1); }
+.nav-bar.is-hidden { transform: translateY(-100%); }
+.nav-progress { position: absolute; left: 0; bottom: -3px; height: 3px; background: var(--orange); width: 0; transform-origin: left; }
+.nav-link.is-active { color: var(--orange); }
+.nav-link.is-active .nav-num { color: var(--orange); opacity: 1; }
+.drawer { position: fixed; inset: 0; z-index: 60; background: var(--paper); transform: translateY(-102%); transition: transform 0.45s cubic-bezier(.2,.8,.2,1); }
+.drawer.is-open { transform: translateY(0); }
+.burger span { display: block; height: 3px; width: 26px; background: var(--ink); transition: transform 0.25s, opacity 0.25s; }
+.burger.is-open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+.burger.is-open span:nth-child(2) { opacity: 0; }
+.burger.is-open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+/* torn paper edges */
+.tear { display: block; width: 100%; height: 28px; }
+.tear--flip { transform: scaleY(-1); }
+
+/* panels lift on hover */
+.panel-hover { transition: transform 0.35s cubic-bezier(.2,.8,.2,1), box-shadow 0.35s ease; }
+.panel-hover:hover { transform: translate(-3px, -5px) rotate(0deg) !important; box-shadow: 12px 14px 0 var(--ink); }
+
+/* sticky note */
+.sticky {
+  background: #f6e46b;
+  color: var(--ink);
+  box-shadow: 4px 6px 0 rgba(0,0,0,0.35);
+  background-image: linear-gradient(180deg, rgba(255,255,255,0.35), transparent 40%);
+}
+
+/* marker scrawl */
+.scrawl { font-family: var(--font-hand), cursive; color: var(--red); font-weight: 700; line-height: 1; }
+
+/* typewriter input */
+.type-input {
+  font-family: var(--font-type), monospace;
+  font-size: 22px;
+  background: transparent;
+  border: 0;
+  border-bottom: 3px solid var(--ink);
+  color: var(--ink);
+  width: 100%;
+  padding: 6px 2px;
+  outline: none;
+}
+.type-input:focus { border-bottom-color: var(--orange); }
+.type-input::placeholder { color: rgba(26,20,16,0.4); }
+
+/* redacted bars */
+.redact { position: relative; display: inline-block; cursor: help; }
+.redact::after {
+  content: ""; position: absolute; inset: -1px -3px; background: var(--ink);
+  transition: transform 0.35s cubic-bezier(.2,.8,.2,1); transform-origin: left center;
+}
+.redact:hover::after, .redact:focus::after { transform: scaleX(0); }
+
+/* faq */
+.faq-body { overflow: hidden; height: 0; }
+.faq-mark { transition: transform 0.25s ease; }
+.faq-item.is-open .faq-mark { transform: rotate(45deg); }
+
+/* lightbox */
+.lightbox { position: fixed; inset: 0; z-index: 150; background: rgba(8,6,5,0.92); display: grid; place-items: center; padding: 16px; }
+.lightbox__frame { background: #fdfaf2; padding: 14px 14px 18px; max-width: min(1100px, 100%); box-shadow: 0 30px 60px rgba(0,0,0,0.6); }
+.lightbox__nav {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  width: 56px; height: 56px; display: grid; place-items: center;
+  background: var(--cream); color: var(--ink); border: 3px solid var(--ink); box-shadow: 4px 4px 0 var(--ink);
+  font-family: var(--font-comic); font-size: 30px; cursor: pointer;
+}
+
+/* tags sway */
+.tag-sway { transform-origin: 50% 0; }
+.tag-sway:hover { animation: sway 1.4s ease-in-out; }
+@keyframes sway {
+  0% { transform: rotate(0); } 25% { transform: rotate(3deg); } 50% { transform: rotate(-2.5deg); } 75% { transform: rotate(1.5deg); } 100% { transform: rotate(0); }
+}
+
+/* lamp */
+.lamp-cone { transform-origin: 50% 0; }
+
+/* watermark */
+.watermark {
+  font-family: var(--font-slab), serif; text-transform: uppercase; line-height: 0.8;
+  color: transparent; -webkit-text-stroke: 2px rgba(251,244,226,0.10);
+  user-select: none; pointer-events: none;
+}
+
+/* confetti diamonds */
+.confetti { position: absolute; pointer-events: none; width: 18px; height: 18px; opacity: 0; }
+
+.ticker:hover .ticker__track { animation-play-state: paused; }

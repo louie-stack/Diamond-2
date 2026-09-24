@@ -1,4 +1,5 @@
 import Motion from "@/components/Motion";
+import Loader from "@/components/Loader";
 import Nav from "@/components/Nav";
 import Hero, { Ticker } from "@/components/Hero";
 import { TheCase, EvidenceBoard, Wanted, Interrogation } from "@/components/Story";
@@ -8,6 +9,7 @@ export default function Page() {
   return (
     <main>
       <Motion />
+      <Loader />
       <div className="grain" aria-hidden="true" />
       <Nav />
       <Hero />

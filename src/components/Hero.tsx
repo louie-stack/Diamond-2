@@ -1,4 +1,6 @@
-import { CA, CA_SHORT, LINKS } from "@/content";
+import { LINKS } from "@/content";
+import CopyCA from "./CopyCA";
+import { Tear } from "./Tear";
 
 export default function Hero() {
   return (
@@ -13,6 +15,14 @@ export default function Hero() {
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(15,12,10,0.98)_0%,rgba(15,12,10,0.92)_34%,rgba(15,12,10,0.35)_60%,rgba(15,12,10,0.05)_100%)]" />
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(15,12,10,0.7)_0%,transparent_25%,transparent_70%,rgba(15,12,10,0.95)_100%)]" />
         <div className="halftone absolute inset-0 opacity-70" />
+        <div className="pointer-events-none absolute -right-[10%] top-0 h-[140%] w-[55%] rotate-[18deg] bg-[linear-gradient(90deg,transparent,rgba(232,181,59,0.10),transparent)] blur-2xl" />
+        {Array.from({ length: 14 }).map((_, i) => (
+          <span
+            key={`d${i}`}
+            className="dust absolute h-[3px] w-[3px] rounded-full bg-[var(--mustard)]/70"
+            style={{ left: `${45 + ((i * 37) % 50)}%`, top: `${10 + ((i * 53) % 80)}%`, opacity: 0.35 + (i % 4) * 0.12 }}
+          />
+        ))}
         {/* cigarette smoke */}
         {[0, 1, 2].map((i) => (
           <div
@@ -62,12 +72,8 @@ export default function Hero() {
             </a>
           </div>
 
-          <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2" data-fx="rise" data-fx-delay="0.5">
-            <span className="label text-[var(--paper)]/60">CA</span>
-            <code className="f-type text-[14px] text-[var(--paper)]/80" title={CA}>
-              <span className="hidden sm:inline">{CA}</span>
-              <span className="sm:hidden">{CA_SHORT}</span>
-            </code>
+          <div className="mt-6" data-fx="rise" data-fx-delay="0.5">
+            <CopyCA />
           </div>
         </div>
 
@@ -83,6 +89,7 @@ export default function Hero() {
           </span>
         </div>
       </div>
+      <Tear color="var(--mustard)" className="absolute bottom-0 left-0 z-[2]" />
     </section>
   );
 }

@@ -1,5 +1,7 @@
 import { Burst } from "./Burst";
 import { Diamond } from "./Diamond";
+import Calculator from "./Calculator";
+import { Tear } from "./Tear";
 
 /* ---------------------------------------------------------------- */
 /* Section 2. The idea, told as a three-panel strip.                  */
@@ -7,6 +9,7 @@ import { Diamond } from "./Diamond";
 export function TheCase() {
   return (
     <section className="halftone halftone--fade relative overflow-hidden bg-[var(--paper)] py-24 lg:py-32">
+      <Tear color="#3b2414" className="absolute bottom-0 left-0 z-[2]" />
       <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-10">
         <div className="mb-10 flex flex-wrap items-end justify-between gap-6">
           <div>
@@ -22,7 +25,7 @@ export function TheCase() {
 
         <div className="grid gap-8 lg:grid-cols-3 lg:gap-6">
           {/* Panel 1 */}
-          <div className="panel lined relative flex min-h-[380px] flex-col justify-between p-6" data-fx="card" data-rot="-1.2">
+          <div className="panel panel-hover lined relative flex min-h-[380px] flex-col justify-between p-6" data-fx="card" data-rot="-1.2">
             <span className="caption absolute -top-4 left-5 !text-[13px]">Panel 1</span>
             <p className="body pt-6">Every memecoin tells holders the same thing:</p>
             <div className="bubble mt-6 mb-6">
@@ -36,7 +39,7 @@ export function TheCase() {
           </div>
 
           {/* Panel 2 */}
-          <div className="panel panel--dark relative flex min-h-[380px] flex-col justify-between overflow-hidden p-6" data-fx="card" data-rot="1.4">
+          <div className="panel panel-hover panel--dark relative flex min-h-[380px] flex-col justify-between overflow-hidden p-6" data-fx="card" data-rot="1.4">
             <span className="caption absolute -top-4 left-5 !text-[13px]">Panel 2</span>
             <p className="body pt-6 text-[var(--paper)]">Then one whale hits sell and nukes the chart.</p>
             <svg viewBox="0 0 600 260" className="absolute inset-x-0 bottom-0 h-[62%] w-full" aria-hidden="true">
@@ -56,13 +59,19 @@ export function TheCase() {
                 strokeLinecap="round"
               />
             </svg>
+            <div className="pointer-events-none absolute left-6 top-24 rotate-[-12deg]" data-fx="slam" data-fx-delay="0.5">
+              <span className="f-cond inline-block rounded-full border-[3px] border-[var(--ink)] bg-[var(--red)] px-4 py-2 text-[15px] font-black uppercase tracking-[0.1em] text-[var(--cream)] shadow-[0_5px_0_#5a0a0c]">
+                Sell
+              </span>
+            </div>
+            <span className="label absolute right-6 top-[46%] text-[var(--cyan)]/70">the whale</span>
             <div className="relative flex justify-end pr-2">
               <Burst size={46} fill="var(--red)">Nuked!</Burst>
             </div>
           </div>
 
           {/* Panel 3 */}
-          <div className="panel relative flex min-h-[380px] flex-col justify-between !bg-[var(--mustard)] p-6" data-fx="card" data-rot="-0.8">
+          <div className="panel panel-hover relative flex min-h-[380px] flex-col justify-between !bg-[var(--mustard)] p-6" data-fx="card" data-rot="-0.8">
             <span className="caption absolute -top-4 left-5 !bg-[var(--cream)] !text-[13px]">Panel 3</span>
             <div className="pt-6">
               <p className="f-comic text-[44px] leading-none">$DIAMOND changes the rules.</p>
@@ -152,6 +161,24 @@ export function EvidenceBoard() {
     <section id="rule" className="scroll-mt-16 bg-[#3b2414] py-6 lg:py-10">
       <div className="cork relative mx-3 border-[12px] border-[#4a2c14] shadow-[inset_0_0_80px_rgba(0,0,0,0.55)] sm:mx-6 lg:mx-10">
         <div className="relative mx-auto max-w-[1360px] px-4 py-20 sm:px-8 lg:px-12 lg:py-28">
+          {/* Suspect photo, pinned top left */}
+          <div className="absolute left-6 top-8 hidden w-[200px] lg:block xl:w-[230px]" data-fx="card" data-rot="-7">
+            <span className="pin left-1/2 -top-2 -translate-x-1/2" />
+            <div className="polaroid !pb-9">
+              <img src="/art/precious.webp" alt="The suspect, holding a diamond." width={1600} height={900} className="photo block aspect-[4/3] w-full object-cover object-[20%_center]" loading="lazy" />
+              <p className="scrawl mt-3 text-[26px]">the suspect</p>
+            </div>
+          </div>
+
+          {/* Sticky note, top right */}
+          <div className="absolute right-8 top-14 hidden w-[210px] lg:block" data-fx="card" data-rot="5">
+            <span className="tape -top-3 left-1/2 -translate-x-1/2 rotate-[-3deg]" />
+            <div className="sticky px-5 pb-6 pt-7">
+              <p className="f-hand text-[26px] font-bold leading-[1.05]">1% per 24h.<br />No exceptions.<br />Not even whales!!</p>
+              <p className="f-hand mt-3 text-[18px] opacity-70">(check the contract)</p>
+            </div>
+          </div>
+
           {/* Header card, pinned */}
           <div className="relative mx-auto mb-20 max-w-[820px] lg:mb-28" data-fx="card" data-rot="-1">
             <span className="pin left-1/2 -top-2 -translate-x-1/2" />
@@ -183,7 +210,7 @@ export function EvidenceBoard() {
               {EXHIBITS.map((e, i) => (
                 <div key={e.tag} className="relative" data-fx="card" data-rot={e.rot} data-fx-delay={i * 0.08}>
                   <span className="pin left-1/2 -top-2 -translate-x-1/2" />
-                  <div className="lined flex min-h-[420px] flex-col bg-[var(--cream)] px-6 pb-6 pt-8 shadow-[6px_8px_0_rgba(0,0,0,0.45)]">
+                  <div className="lined flex flex-col bg-[var(--cream)] lg:min-h-[420px] px-6 pb-6 pt-8 shadow-[6px_8px_0_rgba(0,0,0,0.45)]">
                     <span className="label text-[var(--red)]">{e.tag}</span>
                     <h3 className="headline mt-3 text-[34px] leading-[1]">{e.title}</h3>
                     {e.big && (
@@ -204,15 +231,9 @@ export function EvidenceBoard() {
 
           {/* A worked example, on a polaroid-style note */}
           <div className="mt-20 flex justify-center lg:mt-28">
-            <div className="relative max-w-[640px]" data-fx="card" data-rot="1.5">
-              <span className="tape -top-3 left-1/2 -translate-x-1/2 rotate-[-4deg]" />
-              <div className="panel !bg-[var(--manila)] px-8 py-8 text-center sm:px-12">
-                <span className="label opacity-70">Worked example</span>
-                <p className="f-comic mt-3 text-[34px] leading-none sm:text-[42px]">Hold 1,000,000 $DIAMOND?</p>
-                <p className="type mt-4">Maximum next outbound:</p>
-                <p className="poster poster--flat mt-2 text-[56px] sm:text-[80px]">10,000</p>
-                <p className="label mt-3">$DIAMOND. Then the clock starts.</p>
-              </div>
+            <div className="relative w-full max-w-[640px]" data-fx="card" data-rot="1.5">
+              <span className="tape -top-3 left-1/2 z-[2] -translate-x-1/2 rotate-[-4deg]" />
+              <Calculator />
             </div>
           </div>
         </div>
@@ -232,6 +253,7 @@ export function Wanted() {
       <div className="relative mx-auto grid max-w-[1440px] gap-14 px-4 sm:px-6 lg:grid-cols-[1fr_1.1fr] lg:items-center lg:gap-20 lg:px-10">
         {/* Mugshot */}
         <div className="relative mx-auto w-full max-w-[560px]" data-fx="flash">
+          <span className="label absolute -top-7 left-0 text-[var(--paper)]/50">Booking photo. Do not release.</span>
           <div className="relative border-[3px] border-[var(--cream)] bg-[#2a2622] p-3 shadow-[10px_10px_0_var(--orange)]">
             <div className="relative overflow-hidden">
               {/* height chart */}
@@ -314,14 +336,14 @@ export function Wanted() {
 }
 
 /* ---------------------------------------------------------------- */
-/* Section 5. The <span className="whitespace-nowrap">anti-jeet</span> meta, under a single lamp.                */
+/* Section 5. The anti-jeet meta, under a single lamp.                */
 /* ---------------------------------------------------------------- */
 export function Interrogation() {
   return (
     <section id="why" className="spot relative scroll-mt-16 overflow-hidden bg-[#070605] py-28 text-[var(--cream)] lg:py-40">
       {/* the lamp */}
-      <div className="pointer-events-none absolute left-1/2 top-0 h-[70vh] w-[2px] -translate-x-1/2 bg-gradient-to-b from-[var(--cream)]/40 to-transparent" />
-      <div className="pointer-events-none absolute left-1/2 top-0 -translate-x-1/2">
+      <div className="lamp-wire pointer-events-none absolute left-1/2 top-0 h-[70vh] w-[2px] -translate-x-1/2 bg-gradient-to-b from-[var(--cream)]/40 to-transparent" />
+      <div className="lamp-cone pointer-events-none absolute left-1/2 top-0 -translate-x-1/2">
         <div className="h-0 w-0 border-l-[220px] border-r-[220px] border-t-[520px] border-l-transparent border-r-transparent border-t-[rgba(232,181,59,0.10)] blur-[2px] sm:border-l-[360px] sm:border-r-[360px] sm:border-t-[720px]" />
       </div>
 
