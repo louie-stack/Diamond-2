@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
+import { sfx } from "@/lib/sfx";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -64,6 +65,26 @@ export default function Motion() {
     };
     document.addEventListener("click", onAnchor);
 
+    // Type "jeet" anywhere. The file objects.
+    let buf = "";
+    const onKey = (e: KeyboardEvent) => {
+      if ((e.target as HTMLElement)?.tagName === "INPUT") return;
+      buf = (buf + e.key.toLowerCase()).slice(-4);
+      if (buf !== "jeet") return;
+      buf = "";
+      const egg = document.createElement("div");
+      egg.className = "egg";
+      egg.innerHTML = '<span class="stamp stamp--dark stamp--double" style="font-size:clamp(48px,12vw,160px)">Denied</span>';
+      document.body.appendChild(egg);
+      sfx.buzz(); sfx.thud();
+      gsap.fromTo(egg.firstElementChild, { scale: 3, rotation: 4, opacity: 0 }, { scale: 1, rotation: -10, opacity: 1, duration: 0.28, ease: "power4.in" });
+      gsap.fromTo(document.body, { x: 0 }, { x: 8, duration: 0.05, repeat: 7, yoyo: true, ease: "none", clearProps: "x", delay: 0.28 });
+      gsap.to(egg, { opacity: 0, duration: 0.4, delay: 1.3, onComplete: () => egg.remove() });
+    };
+    window.addEventListener("keydown", onKey);
+    const onLoad = () => ScrollTrigger.refresh();
+    window.addEventListener("load", onLoad);
+
     const ctx = gsap.context(() => {
       if (reduce) return;
 
@@ -90,6 +111,7 @@ export default function Motion() {
           scale: 2.4, opacity: 0, rotation: rot + 6, duration: 0.32, ease: "power4.in", delay: delayOf(el),
           scrollTrigger: trig(el),
           onComplete: () => {
+            sfx.thud();
             if (!section || el.dataset.shake === "off") return;
             gsap.fromTo(section, { x: 0 }, { x: 4, duration: 0.05, repeat: 5, yoyo: true, ease: "none", clearProps: "x" });
             if (el.dataset.confetti) burstConfetti(section, el);
@@ -153,7 +175,14 @@ export default function Motion() {
           el.appendChild(s);
           return s;
         });
-        gsap.to(spans, { opacity: 1, duration: 0.01, stagger: 0.028, delay: delayOf(el), scrollTrigger: trig(el) });
+        let shown = 0;
+        gsap.to(spans, {
+          opacity: 1, duration: 0.01, stagger: 0.028, delay: delayOf(el), scrollTrigger: trig(el),
+          onUpdate() {
+            const n = Math.floor(this.progress() * spans.length);
+            if (n > shown) { shown = n; if (n % 2 === 0) sfx.tick(); }
+          },
+        });
       });
 
       gsap.utils.toArray<HTMLElement>("[data-fx='flash']").forEach((el) => {
@@ -161,6 +190,58 @@ export default function Motion() {
           opacity: 0, filter: "brightness(6) contrast(0.2)", duration: 0.7, ease: "power3.out", delay: delayOf(el),
           scrollTrigger: trig(el),
         });
+      });
+
+      // Letters: each character of each .word drops in like a lobby-card letter.
+      gsap.utils.toArray<HTMLElement>("[data-fx='letters']").forEach((el) => {
+        const chars: HTMLElement[] = [];
+        el.querySelectorAll<HTMLElement>(".word").forEach((w) => {
+          const text = w.textContent || "";
+          w.textContent = "";
+          Array.from(text).forEach((c) => {
+            const sp = document.createElement("span");
+            sp.className = "ch";
+            sp.textContent = c;
+            w.appendChild(sp);
+            chars.push(sp);
+          });
+        });
+        gsap.from(chars, {
+          y: -90, rotation: () => gsap.utils.random(-14, 14), scale: 1.25, opacity: 0,
+          duration: 0.55, ease: "power4.in", stagger: 0.045, delay: delayOf(el),
+          onComplete: () => sfx.thud(),
+        });
+      });
+
+      // Spin: the newspaper flies in spinning and lands at a slight angle.
+      gsap.utils.toArray<HTMLElement>("[data-fx='spin']").forEach((el) => {
+        gsap.from(el, {
+          rotation: -900, scale: 0.05, opacity: 0, duration: 1.4, ease: "power3.out", delay: delayOf(el),
+          scrollTrigger: { trigger: el, start: "top 90%", once: true },
+          onComplete: () => sfx.flip(),
+        });
+      });
+
+      // Hero: copy drifts up and fades, mascot pushes in, as you scroll away.
+      const heroSec = document.querySelector<HTMLElement>("#top");
+      if (heroSec) {
+        gsap.to(".hero-copy", { y: 140, opacity: 0, ease: "none", scrollTrigger: { trigger: heroSec, start: "top top", end: "bottom top", scrub: true } });
+        gsap.to(".hero-art", { scale: 1.14, ease: "none", scrollTrigger: { trigger: heroSec, start: "top top", end: "bottom top", scrub: true } });
+        gsap.to(".scroll-cue", { opacity: 0, ease: "none", scrollTrigger: { trigger: heroSec, start: "top top", end: "+=300", scrub: true } });
+      }
+
+      // Comic strip: on desktop the three panels scroll sideways while the strip is pinned.
+      ScrollTrigger.matchMedia({
+        "(min-width: 1024px)": () => {
+          const strip = document.querySelector<HTMLElement>(".strip");
+          const track = document.querySelector<HTMLElement>(".strip__track");
+          if (!strip || !track) return;
+          const dist = () => track.scrollWidth - window.innerWidth;
+          gsap.to(track, {
+            x: () => -dist(), ease: "none",
+            scrollTrigger: { trigger: strip, start: "top top", end: () => "+=" + dist(), pin: true, scrub: 0.6, invalidateOnRefresh: true, anticipatePin: 1 },
+          });
+        },
       });
 
       // Hero: the blinds shadow drifts, the mascot breathes.
@@ -202,6 +283,8 @@ export default function Motion() {
 
     return () => {
       document.removeEventListener("click", onAnchor);
+      window.removeEventListener("keydown", onKey);
+      window.removeEventListener("load", onLoad);
       ctx.revert();
       lenis?.destroy();
     };

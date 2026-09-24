@@ -34,16 +34,16 @@ export default function Hero() {
       </div>
 
       <div className="relative mx-auto flex min-h-[100svh] max-w-[1440px] flex-col justify-end px-4 pb-14 pt-28 sm:px-6 lg:justify-center lg:px-10 lg:pb-24 lg:pt-28">
-        <div className="max-w-[760px]">
+        <div className="hero-copy max-w-[760px]">
           <div className="mb-6 flex flex-wrap items-center gap-3" data-fx="rise">
             <span className="caption">Case file No. 001</span>
             <span className="label text-[var(--mustard)]">The world&apos;s first anti-jeet memecoin</span>
           </div>
 
-          <h1 className="poster poster--dark text-[17vw] leading-[0.86] sm:text-[96px] lg:text-[124px]" data-fx="slam">
-            Diamond
+          <h1 className="poster poster--dark text-[17vw] leading-[0.86] sm:text-[96px] lg:text-[124px]" data-fx="letters" data-fx-delay="0.1">
+            <span className="word">Diamond</span>
             <br />
-            Hands
+            <span className="word">Hands</span>
           </h1>
 
           <p className="f-comic mt-5 text-[30px] leading-none text-[var(--cyan)] sm:text-[38px]" data-fx="rise" data-fx-delay="0.15">
@@ -88,6 +88,10 @@ export default function Hero() {
             Diamond hands. Enforced by code.
           </span>
         </div>
+      </div>
+      <div className="scroll-cue hidden lg:flex">
+        <span className="label text-[var(--mustard)]">Scroll to open the file</span>
+        <span className="scroll-cue__arrow" />
       </div>
       <Tear color="var(--mustard)" className="absolute bottom-0 left-0 z-[2]" />
     </section>

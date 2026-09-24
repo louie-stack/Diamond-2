@@ -23,12 +23,13 @@ export function TheCase() {
           </p>
         </div>
 
-        <div className="grid gap-8 lg:grid-cols-3 lg:gap-6">
+        <div className="strip -mx-4 sm:-mx-6 lg:-mx-10">
+        <div className="strip__track grid gap-8 px-4 sm:px-6 lg:px-0">
           {/* Panel 1 */}
-          <div className="panel panel-hover lined relative flex min-h-[380px] flex-col justify-between p-6" data-fx="card" data-rot="-1.2">
+          <div className="strip__panel panel panel-hover lined relative flex min-h-[380px] flex-col justify-between p-6 lg:p-10" data-fx="card" data-rot="-1.2">
             <span className="caption absolute -top-4 left-5 !text-[13px]">Panel 1</span>
-            <p className="body pt-6">Every memecoin tells holders the same thing:</p>
-            <div className="bubble mt-6 mb-6">
+            <p className="body pt-6 lg:text-[24px]">Every memecoin tells holders the same thing:</p>
+            <div className="bubble mt-6 mb-6 lg:max-w-[75%] lg:text-[38px]">
               Don&apos;t jeet.
               <br />
               Don&apos;t dump.
@@ -39,9 +40,9 @@ export function TheCase() {
           </div>
 
           {/* Panel 2 */}
-          <div className="panel panel-hover panel--dark relative flex min-h-[380px] flex-col justify-between overflow-hidden p-6" data-fx="card" data-rot="1.4">
+          <div className="strip__panel panel panel-hover panel--dark relative flex min-h-[380px] flex-col justify-between overflow-hidden p-6 lg:p-10" data-fx="card" data-rot="1.4">
             <span className="caption absolute -top-4 left-5 !text-[13px]">Panel 2</span>
-            <p className="body pt-6 text-[var(--paper)]">Then one whale hits sell and nukes the chart.</p>
+            <p className="body pt-6 text-[var(--paper)] lg:text-[24px]">Then one whale hits sell and nukes the chart.</p>
             <svg viewBox="0 0 600 260" className="absolute inset-x-0 bottom-0 h-[62%] w-full" aria-hidden="true">
               <defs>
                 <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
@@ -71,11 +72,11 @@ export function TheCase() {
           </div>
 
           {/* Panel 3 */}
-          <div className="panel panel-hover relative flex min-h-[380px] flex-col justify-between !bg-[var(--mustard)] p-6" data-fx="card" data-rot="-0.8">
+          <div className="strip__panel panel panel-hover relative flex min-h-[380px] flex-col justify-between !bg-[var(--mustard)] p-6 lg:p-10" data-fx="card" data-rot="-0.8">
             <span className="caption absolute -top-4 left-5 !bg-[var(--cream)] !text-[13px]">Panel 3</span>
             <div className="pt-6">
-              <p className="f-comic text-[44px] leading-none">$DIAMOND changes the rules.</p>
-              <p className="body mt-5">
+              <p className="f-comic text-[44px] leading-none lg:text-[64px]">$DIAMOND changes the rules.</p>
+              <p className="body mt-5 lg:text-[24px]">
                 Instead of asking people to have diamond hands, the mechanism is built directly into the token.
               </p>
             </div>
@@ -84,6 +85,7 @@ export function TheCase() {
               <Diamond className="h-20 w-20 text-[var(--ink)]" />
             </div>
           </div>
+        </div>
         </div>
 
         <div className="mt-24 grid gap-10 lg:grid-cols-[1.4fr_1fr] lg:items-center">
@@ -253,7 +255,7 @@ export function Wanted() {
       <div className="relative mx-auto grid max-w-[1440px] gap-14 px-4 sm:px-6 lg:grid-cols-[1fr_1.1fr] lg:items-center lg:gap-20 lg:px-10">
         {/* Mugshot */}
         <div className="relative mx-auto w-full max-w-[560px]" data-fx="flash">
-          <span className="label absolute -top-7 left-0 text-[var(--paper)]/50">Booking photo. Do not release.</span>
+          <span className="label absolute -bottom-9 left-0 text-[var(--paper)]/50">Booking photo. Do not release.</span>
           <div className="relative border-[3px] border-[var(--cream)] bg-[#2a2622] p-3 shadow-[10px_10px_0_var(--orange)]">
             <div className="relative overflow-hidden">
               {/* height chart */}
@@ -374,6 +376,13 @@ export function Interrogation() {
         <p className="body mx-auto mt-8 max-w-[560px] text-[var(--paper)]/75" data-fx="rise">
           You just can&apos;t unload your entire position into everyone else at once.
         </p>
+
+        <div className="mx-auto mt-14 w-full max-w-[420px]" data-fx="slam" data-fx-delay="0.1">
+          <div className="polaroid rotate-[-4deg]">
+            <img src="/art/say-sell-again.webp" alt="Say sell again." width={1600} height={900} className="photo block aspect-[16/10] w-full object-cover" loading="lazy" />
+            <p className="scrawl mt-3 text-left text-[26px]">exhibit: &ldquo;say sell again&rdquo;</p>
+          </div>
+        </div>
 
         <p className="f-comic mt-14 text-[44px] leading-[0.95] sm:text-[72px]" data-fx="slam">
           Selling is allowed.

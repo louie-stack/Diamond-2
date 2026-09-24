@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { FAQ, LINKS } from "@/content";
+import { sfx } from "@/lib/sfx";
 
 export default function Faq() {
   const [open, setOpen] = useState<number | null>(0);
@@ -26,7 +27,7 @@ export default function Faq() {
             <button
               type="button"
               aria-expanded={isOpen}
-              onClick={() => setOpen(isOpen ? null : i)}
+              onClick={() => { sfx.flip(); setOpen(isOpen ? null : i); }}
               className="flex w-full items-start gap-5 px-5 py-6 pl-12 text-left hover:bg-[var(--paper)] sm:px-8 sm:pl-14"
             >
               <span className="f-type mt-1 w-12 shrink-0 text-[13px] uppercase tracking-[0.1em] text-[var(--red)]">
