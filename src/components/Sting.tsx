@@ -3,6 +3,9 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { sfx } from "@/lib/sfx";
+import SceneBg from "./SceneBg";
+import SecHead from "./SecHead";
+import Rip from "./Rip";
 
 const START = 1_000_000;
 const HOURS = 24;
@@ -115,56 +118,57 @@ export default function Sting() {
   const lm = Math.floor((left - lh) * 60);
 
   return (
-    <section id="sting" className="relative overflow-hidden bg-[#1b1411] py-24 text-[var(--cream)] lg:py-32">
-      <div className="scan pointer-events-none absolute inset-0" />
-      <div className="relative mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-10">
-        <div className="flex flex-wrap items-end justify-between gap-6">
-          <div>
-            <span className="caption" data-fx="rise">Interlude. The sting.</span>
-            <h2 className="poster poster--dark mt-6 text-[52px] sm:text-[72px] lg:text-[96px]" data-fx="slam">
-              Try to jeet.
-            </h2>
-          </div>
-          <p className="body max-w-[380px] text-[var(--paper)]/75" data-fx="rise">
-            A wallet. A sell button. The rule. Go on. The demo clock runs at 24 hours in ten seconds.
-          </p>
-        </div>
+    <section id="sting" className="sec overflow-hidden bg-[var(--night)]">
+      <Rip color="var(--night-2)" fiber="#3d4034" seed={33} inside />
+      <SceneBg src="/art/case/max-sell.webp" tone="var(--night)" height="min(90vh, 860px)" opacity={0.5} position="40% 35%" />
+      <div className="wrap relative">
+        <SecHead
+          n="Interlude"
+          label="The sting"
+          title="Try to jeet."
+          aside="A wallet. A sell button. The rule. Go on. The demo clock runs at 24 hours in ten seconds."
+        />
 
-        <div ref={console_} className="mt-14 grid gap-8 lg:grid-cols-[1.1fr_1fr]" data-fx="rise">
+        <div ref={console_} className="mt-16 grid gap-px bg-[var(--line-d)] lg:mt-20 lg:grid-cols-[1.15fr_1fr]" data-fx="rise">
           {/* Wallet console */}
-          <div className="panel panel--dark relative overflow-visible p-6 sm:p-8">
-            <div className="flex flex-wrap items-start justify-between gap-4">
+          <div className="relative bg-[var(--night)] p-7 sm:p-10">
+            <div className="flex flex-wrap items-start justify-between gap-6">
               <div>
-                <p className="label text-[var(--paper)]/60">Wallet 0xD1A...0ND</p>
-                <p className="f-slab mt-2 text-[40px] leading-none sm:text-[56px]">{fmt(balance)}</p>
-                <p className="label mt-1 text-[var(--mustard)]">$DIAMOND held</p>
+                <p className="meta opacity-50">Wallet 0xD1A...0ND</p>
+                <p className="display mt-3 text-[clamp(48px,5vw,76px)] leading-none tabular-nums">{fmt(balance)}</p>
+                <p className="meta mt-2 opacity-50">$DIAMOND held</p>
               </div>
               <div className="text-right">
-                <p className="label text-[var(--paper)]/60">Max next outbound</p>
-                <p className="f-slab mt-2 text-[40px] leading-none text-[var(--cyan)] sm:text-[56px]">{fmt(max)}</p>
-                <p className="label mt-1 text-[var(--paper)]/60">1% of current bag</p>
+                <p className="meta opacity-50">Max next outbound</p>
+                <p className="display mt-3 text-[clamp(48px,5vw,76px)] leading-none text-[var(--lime)] tabular-nums">{fmt(max)}</p>
+                <p className="meta mt-2 opacity-50">1% of current bag</p>
               </div>
             </div>
 
-            <div className="mt-8 border-t-[3px] border-dashed border-[var(--cream)]/30 pt-8">
-              <p className="label text-[var(--paper)]/60">Outbound</p>
-              <div className="mt-4 flex flex-wrap items-center gap-4">
-                <button type="button" onClick={() => sell(Math.floor(balance / 500), "0.2%")} className="btn btn--ghost">
+            <div className="mt-10 border-t border-[var(--line-d)] pt-8">
+              <p className="meta opacity-50">Outbound</p>
+              <div className="mt-4 flex flex-wrap items-center gap-3">
+                <button type="button" onClick={() => sell(Math.floor(balance / 500), "0.2%")} className="btn btn--line">
                   Sell 0.2%
                 </button>
-                <button type="button" onClick={() => sell(max, "1%")} className="btn btn--orange">
+                <button type="button" onClick={() => sell(max, "1%")} className="btn btn--lime">
                   Sell 1% (max)
                 </button>
-                <button type="button" onClick={() => sell(balance, "your whole bag")} className="arcade" aria-label="Sell everything">
-                  <span>Sell<br />all</span>
+                <button
+                  type="button"
+                  onClick={() => sell(balance, "your whole bag")}
+                  className="btn border-[var(--red)] text-[var(--red)] hover:bg-[var(--red)] hover:text-[var(--ink)]"
+                  aria-label="Sell everything"
+                >
+                  Sell all
                 </button>
               </div>
-              <p className="label mt-6 text-[var(--paper)]/60">Inbound</p>
-              <div className="mt-4 flex flex-wrap items-center gap-4">
-                <button type="button" onClick={() => buy(250_000)} className="btn">
+              <p className="meta mt-8 opacity-50">Inbound</p>
+              <div className="mt-4 flex flex-wrap items-center gap-5">
+                <button type="button" onClick={() => buy(250_000)} className="btn btn--line">
                   Buy 250,000
                 </button>
-                <button type="button" onClick={reset} className="f-type text-[13px] uppercase tracking-[0.14em] text-[var(--paper)]/60 underline-offset-4 hover:text-[var(--cyan)] hover:underline">
+                <button type="button" onClick={reset} className="meta link-u opacity-60 hover:opacity-100">
                   Reset wallet
                 </button>
               </div>
@@ -173,7 +177,7 @@ export default function Sting() {
             {stamp && (
               <span
                 key={stamp.id}
-                className={`sting-stamp stamp stamp--double ${stamp.kind === "deny" ? "stamp--dark" : "stamp--cyan"} !text-[40px] sm:!text-[64px]`}
+                className={`stamp stamp-in pointer-events-none absolute bottom-10 right-8 !border-[5px] !text-[40px] sm:!text-[56px] ${stamp.kind === "deny" ? "" : "stamp--lime"}`}
               >
                 {stamp.text}
               </span>
@@ -181,61 +185,51 @@ export default function Sting() {
           </div>
 
           {/* Clock and transcript */}
-          <div className="grid gap-8 sm:grid-cols-[auto_1fr] lg:grid-cols-1">
-            <div className="flex items-center gap-6 sm:flex-col sm:items-start lg:flex-row lg:items-center">
-              <svg viewBox="0 0 200 200" className="h-[150px] w-[150px] shrink-0 sm:h-[170px] sm:w-[170px]" aria-hidden="true">
-                <circle cx="100" cy="100" r="92" fill="var(--cream)" stroke="var(--ink)" strokeWidth="6" />
+          <div className="flex flex-col bg-[var(--night)]">
+            <div className="flex items-center gap-7 border-b border-[var(--line-d)] p-7 sm:p-10">
+              <svg viewBox="0 0 200 200" className="h-[132px] w-[132px] shrink-0" aria-hidden="true">
+                <circle cx="100" cy="100" r="90" fill="none" stroke="rgba(236,230,214,0.14)" strokeWidth="2" />
                 {Array.from({ length: 24 }).map((_, i) => {
                   const a = (i / 24) * Math.PI * 2 - Math.PI / 2;
-                  const r1 = i % 6 === 0 ? 72 : 80;
+                  const r1 = i % 6 === 0 ? 70 : 76;
                   return (
                     <line
                       key={i}
-                      x1={100 + Math.cos(a) * r1}
-                      y1={100 + Math.sin(a) * r1}
-                      x2={100 + Math.cos(a) * 86}
-                      y2={100 + Math.sin(a) * 86}
-                      stroke="var(--ink)"
-                      strokeWidth={i % 6 === 0 ? 4 : 2}
+                      x1={+(100 + Math.cos(a) * r1).toFixed(2)}
+                      y1={+(100 + Math.sin(a) * r1).toFixed(2)}
+                      x2={+(100 + Math.cos(a) * 82).toFixed(2)}
+                      y2={+(100 + Math.sin(a) * 82).toFixed(2)}
+                      stroke={i % 6 === 0 ? "rgba(236,230,214,0.6)" : "rgba(236,230,214,0.25)"}
+                      strokeWidth={i % 6 === 0 ? 2 : 1}
                     />
                   );
                 })}
-                {active && (
-                  <path
-                    d={describeArc(100, 100, 60, 0, angle)}
-                    fill="none"
-                    stroke="var(--orange)"
-                    strokeWidth="14"
-                    opacity="0.85"
-                  />
-                )}
-                <line x1="100" y1="100" x2="100" y2="30" stroke="var(--red)" strokeWidth="5" strokeLinecap="round" transform={`rotate(${angle} 100 100)`} />
-                <circle cx="100" cy="100" r="7" fill="var(--ink)" />
+                {active && <path d={describeArc(100, 100, 90, 0, angle)} fill="none" stroke="var(--lime)" strokeWidth="4" />}
+                <line x1="100" y1="100" x2="100" y2="38" stroke={active ? "var(--lime)" : "var(--bone)"} strokeWidth="2" strokeLinecap="round" transform={`rotate(${angle} 100 100)`} />
+                <circle cx="100" cy="100" r="4" fill="var(--bone)" />
               </svg>
               <div>
-                <p className="label text-[var(--paper)]/60">Cooldown clock</p>
-                <p className={`f-slab mt-2 text-[36px] leading-none sm:text-[44px] ${active ? "text-[var(--orange)]" : "text-[var(--cyan)]"}`}>
+                <p className="meta opacity-50">Cooldown clock</p>
+                <p className={`display mt-2 text-[52px] leading-none tabular-nums ${active ? "text-[var(--bone)]" : "text-[var(--lime)]"}`}>
                   {active ? `${lh}h ${String(lm).padStart(2, "0")}m` : "Clear"}
                 </p>
-                <p className="type mt-2 text-[14px] text-[var(--paper)]/70">
-                  {active ? "One outbound already used. Wait it out." : "Next outbound available now."}
-                </p>
-                <p className="label mt-3 text-[var(--paper)]/40">Sells this session: {sells}</p>
+                <p className="body-s mt-2 text-[var(--bone)]/60">{active ? "One outbound already used. Wait it out." : "Next outbound available now."}</p>
+                <p className="meta mt-3 opacity-40">Sells this session: {sells}</p>
               </div>
             </div>
 
-            <div className="lined relative border-[3px] border-[var(--ink)] bg-[var(--cream)] text-[var(--ink)] shadow-[8px_8px_0_var(--orange)]">
-              <div className="flex items-center justify-between border-b-[3px] border-[var(--ink)] px-4 py-2">
-                <span className="label">Transcript</span>
-                <span className="label opacity-50">Recorded live</span>
+            <div className="flex flex-1 flex-col">
+              <div className="flex items-center justify-between px-7 pt-6 sm:px-10">
+                <span className="meta opacity-50">Transcript</span>
+                <span className="meta flex items-center gap-2 opacity-50"><span className="rec" /> Recorded live</span>
               </div>
-              <div ref={logBox} className="h-[224px] overflow-y-auto px-4 py-3">
+              <div ref={logBox} className="h-[230px] overflow-y-auto px-7 pb-6 pt-3 sm:px-10" data-lenis-prevent="">
                 {log.map((l, i) => (
                   <p
                     key={i}
-                    className={`f-type text-[14px] leading-[28px] ${l.kind === "deny" ? "text-[var(--red)]" : l.kind === "ok" ? "text-[var(--ink)]" : "text-[var(--ink)]/65"}`}
+                    className={`mono border-b border-[var(--line-d)] py-2 text-[13px] leading-relaxed ${l.kind === "deny" ? "text-[var(--red)]" : l.kind === "ok" ? "text-[var(--bone)]" : "text-[var(--bone)]/55"}`}
                   >
-                    <span className="mr-2 opacity-50">{String(i + 1).padStart(2, "0")}</span>
+                    <span className="mr-3 opacity-40">{String(i + 1).padStart(2, "0")}</span>
                     {l.t}
                   </p>
                 ))}

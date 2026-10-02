@@ -1,52 +1,53 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 
-/** Cold open: a typed case-file slate, a flashbulb, then the curtain lifts. Once per session. */
+/** Cold open: a film leader. Count, flash, the curtain lifts. Once per session. */
 export default function Loader() {
   const [show, setShow] = useState(false);
+  const num = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     let seen = false;
     try {
-      seen = sessionStorage.getItem("dh-open") === "1";
+      seen = sessionStorage.getItem("dh-open") === "2";
     } catch {}
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (seen || reduce) return;
+    if (seen || reduce) {
+      opened();
+      return;
+    }
     setShow(true);
     try {
-      sessionStorage.setItem("dh-open", "1");
+      sessionStorage.setItem("dh-open", "2");
     } catch {}
   }, []);
 
   useEffect(() => {
     if (!show) return;
     document.documentElement.style.overflow = "hidden";
-    const lines = gsap.utils.toArray<HTMLElement>(".loader__line");
+    const o = { v: 0 };
     const tl = gsap.timeline({
       onComplete: () => {
         document.documentElement.style.overflow = "";
         setShow(false);
       },
     });
-    lines.forEach((el) => {
-      const text = el.dataset.text || "";
-      el.textContent = "";
-      const chars = Array.from(text).map((c) => {
-        const s = document.createElement("span");
-        s.textContent = c;
-        s.style.opacity = "0";
-        el.appendChild(s);
-        return s;
-      });
-      tl.to(chars, { opacity: 1, duration: 0.01, stagger: 0.022 }, "<+0.1");
-    });
-    tl.to(".loader__stamp", { opacity: 1, scale: 1, duration: 0.18, ease: "power4.in" }, "+=0.15")
-      .to(".loader__flash", { opacity: 1, duration: 0.05 }, "+=0.25")
-      .to(".loader__flash", { opacity: 0, duration: 0.5 })
-      .to(".loader__slate", { opacity: 0, duration: 0.3 }, "<")
-      .to(".loader", { yPercent: -100, duration: 0.7, ease: "power4.inOut" }, "<+0.1");
+    tl.from(".loader__meta", { opacity: 0, y: 8, duration: 0.5, stagger: 0.08, ease: "expo.out" })
+      .to(o, {
+        v: 100, duration: 1.4, ease: "power2.inOut",
+        onUpdate: () => {
+          if (num.current) num.current.textContent = String(Math.round(o.v)).padStart(3, "0");
+        },
+      }, 0.1)
+      .to(".loader__bar", { scaleX: 1, duration: 1.4, ease: "power2.inOut" }, 0.1)
+      .fromTo(".loader__gem", { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(2)" }, 1.25)
+      .to(".loader__flash", { opacity: 1, duration: 0.06 }, 1.75)
+      .to(".loader__flash", { opacity: 0, duration: 0.6 }, 1.82)
+      .to(".loader__inner", { opacity: 0, duration: 0.2 }, 1.8)
+      .to(".loader", { yPercent: -100, duration: 0.9, ease: "expo.inOut" }, 1.95)
+      .call(opened, [], 2.25);
     return () => {
       tl.kill();
       document.documentElement.style.overflow = "";
@@ -56,17 +57,33 @@ export default function Loader() {
   if (!show) return null;
   return (
     <div className="loader" aria-hidden="true">
-      <div className="loader__slate px-6 text-center">
-        <p className="loader__line label text-[var(--mustard)]" data-text="Department of Diamond Hands" />
-        <p className="loader__line f-type mt-4 text-[22px] uppercase tracking-[0.14em] sm:text-[30px]" data-text="Case file No. 001" />
-        <p className="loader__line f-type mt-2 text-[15px] uppercase tracking-[0.14em] opacity-70 sm:text-[18px]" data-text="Subject: the anti-jeet memecoin" />
-        <div className="mt-8 flex justify-center">
-          <span className="loader__stamp stamp stamp--dark stamp--double !text-[22px] opacity-0 sm:!text-[30px]" style={{ transform: "rotate(-8deg) scale(2.2)" }}>
-            Opened
-          </span>
+      <div className="loader__inner wrap flex h-full flex-col justify-between py-8">
+        <div className="flex justify-between">
+          <span className="loader__meta meta text-[var(--bone)]/50">Department of Diamond Hands</span>
+          <span className="loader__meta meta text-[var(--bone)]/50">Case #1027</span>
+        </div>
+        <div className="flex flex-col items-center">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/art/case/logo.png" alt="" className="loader__gem h-[84px] w-[84px] opacity-0" />
+        </div>
+        <div>
+          <div className="flex items-end justify-between">
+            <span className="loader__meta meta text-[var(--bone)]/50">Opening the file</span>
+            <span ref={num} className="loader__meta display text-[64px] leading-none text-[var(--lime)] tabular-nums">000</span>
+          </div>
+          <div className="mt-4 h-px bg-[var(--line-d)]">
+            <div className="loader__bar h-px origin-left scale-x-0 bg-[var(--lime)]" />
+          </div>
         </div>
       </div>
-      <div className="loader__flash" />
+      <div className="loader__flash pointer-events-none absolute inset-0 bg-[#fbfff0] opacity-0" />
     </div>
   );
+}
+
+function opened() {
+  const w = window as unknown as { __dhOpened?: boolean };
+  if (w.__dhOpened) return;
+  w.__dhOpened = true;
+  window.dispatchEvent(new Event("dh:open"));
 }

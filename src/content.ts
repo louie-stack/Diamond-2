@@ -3,7 +3,8 @@ export const CA_SHORT = "0x0000...0000";
 
 // Swap these for the live URLs at launch.
 export const LINKS = {
-  buy: "#",
+  // "#buy" opens the in-page checkout (src/components/Checkout.tsx).
+  buy: "#buy",
   contract: "#",
   lpLock: "#",
   dexscreener: "#",
@@ -11,7 +12,18 @@ export const LINKS = {
   telegram: "#",
 };
 
+// Checkout. UNCONFIRMED: paid in ETH. The teaser says "Coming to Robinhood Chain" (EVM, ETH gas).
+// demoPrice is a placeholder (ETH per token) so the quote has something to show
+// before launch; set live: true and replace the simulated sign step at launch.
+export const CHECKOUT = {
+  live: false,
+  currency: "ETH",
+  demoPrice: 0.00000004,
+  gas: "0.0012",
+};
+
 export const NAV = [
+  { label: "Teaser", href: "#teaser" },
   { label: "The 1% Rule", href: "#rule" },
   { label: "Why Diamond", href: "#why" },
   { label: "Tokenomics", href: "#tokenomics" },

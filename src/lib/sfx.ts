@@ -1,5 +1,6 @@
 /**
- * Tiny synthesized sound kit. No audio files. Off until the user turns it on.
+ * Sound for the site: a looping theme track plus a tiny synthesized kit.
+ * Off until the user turns it on.
  *   thud  - rubber stamp hitting paper
  *   tick  - typewriter key
  *   flip  - a sheet of paper turning
@@ -58,7 +59,41 @@ function tone(freq: number, to: number, dur: number, vol: number, type: Oscillat
   o.stop(t + dur + 0.02);
 }
 
+/* the theme: "Spy Detective Robbery" by Solarflex, looped under the site */
+let theme: HTMLAudioElement | null = null;
+let fade = 0;
+let ducked = false;
+const THEME_VOL = 0.42;
+function music(play: boolean) {
+  if (typeof window === "undefined") return;
+  if (!theme) {
+    theme = new Audio("/audio/theme.mp3");
+    theme.loop = true;
+    theme.preload = "auto";
+    theme.volume = 0;
+  }
+  const a = theme;
+  cancelAnimationFrame(fade);
+  if (play) a.play().catch(() => {});
+  const from = a.volume;
+  const to = play ? THEME_VOL : 0;
+  const t0 = performance.now();
+  const dur = play ? 1200 : 600;
+  const step = (now: number) => {
+    const k = Math.min(1, Math.max(0, (now - t0) / dur));
+    a.volume = Math.min(1, Math.max(0, from + (to - from) * k));
+    if (k < 1) fade = requestAnimationFrame(step);
+    else if (!play) a.pause();
+  };
+  fade = requestAnimationFrame(step);
+}
+
 export const sfx = {
+  /** pause the theme while something else (the teaser) plays with sound */
+  duck(v: boolean) {
+    ducked = v;
+    if (on) music(!v);
+  },
   enabled: () => on,
   subscribe(fn: (v: boolean) => void) {
     listeners.add(fn);
@@ -67,6 +102,7 @@ export const sfx = {
   toggle(v?: boolean) {
     on = v ?? !on;
     if (on) ensure();
+    music(on && !ducked);
     listeners.forEach((fn) => fn(on));
     return on;
   },

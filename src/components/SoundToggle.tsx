@@ -7,7 +7,9 @@ export default function SoundToggle() {
   const [on, setOn] = useState(false);
   useEffect(() => {
     const off = sfx.subscribe(setOn);
-    return () => { off(); };
+    return () => {
+      off();
+    };
   }, []);
   return (
     <button
@@ -17,10 +19,14 @@ export default function SoundToggle() {
         if (v) setTimeout(() => sfx.thud(), 30);
       }}
       aria-pressed={on}
-      className="sound-toggle f-type"
+      className={`sound-toggle meta ${on ? "is-on" : ""}`}
       title="Toggle sound effects"
     >
-      <span className={`sound-dot ${on ? "is-on" : ""}`} />
+      <span className="sound-bars" aria-hidden="true">
+        <i />
+        <i />
+        <i />
+      </span>
       Sound {on ? "on" : "off"}
     </button>
   );

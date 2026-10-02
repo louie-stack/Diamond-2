@@ -1,12 +1,13 @@
 import { LINKS, TOKENOMICS } from "@/content";
-import { Diamond } from "./Diamond";
 import CopyCA from "./CopyCA";
 import Faq from "./Faq";
 import MemeWall from "./MemeWall";
-import { Tear } from "./Tear";
+import SceneBg from "./SceneBg";
+import SecHead, { Idx } from "./SecHead";
+import Rip from "./Rip";
 
 /* ---------------------------------------------------------------- */
-/* Section 6. No tricks, as a declassified memo.                      */
+/* 05. No tricks. A declassified dossier.                             */
 /* ---------------------------------------------------------------- */
 const NOS = [
   "No hidden mint.",
@@ -18,44 +19,55 @@ const NOS = [
   "No permanent exemption for the deployer.",
 ];
 
+const Cross = () => (
+  <svg viewBox="0 0 12 12" className="mt-[7px] h-3 w-3 shrink-0" aria-hidden="true">
+    <path d="M1 1l10 10M11 1L1 11" stroke="var(--red)" strokeWidth="2" />
+  </svg>
+);
+
 export function Declassified() {
   return (
-    <section id="contract" className="halftone scroll-mt-16 bg-[var(--paper-2)] py-24 lg:py-32">
-      <div className="mx-auto max-w-[1100px] px-4 sm:px-6">
-        <div className="relative" data-fx="rise">
-          <span className="tape -top-4 left-10 rotate-[-6deg]" />
-          <span className="tape -top-4 right-10 rotate-[5deg]" />
-          <div className="panel relative px-6 py-10 sm:px-12 sm:py-14">
-            {/* letterhead */}
-            <div className="flex flex-wrap items-start justify-between gap-6 border-b-[3px] border-[var(--ink)] pb-6">
+    <section id="contract" className="sec sec--paper scroll-mt-16">
+      <Rip color="var(--paper)" seed={3} />
+      <div className="wrap">
+        <Idx n="05" label="No tricks" />
+
+        <div className="relative mx-auto mt-14 max-w-[1180px] bg-[var(--bone)] shadow-[0_1px_0_var(--line-l),0_40px_80px_-30px_rgba(20,17,10,0.35)]">
+          {/* the dossier photo */}
+          <div className="vf relative overflow-hidden bg-black" data-fx="img">
+            <span className="vf__b" />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/art/case/banner.webp" alt="A redacted case file beside a glowing lime diamond." className="block aspect-[3/1] w-full object-cover" loading="lazy" />
+          </div>
+
+          <div className="px-6 pb-12 pt-10 sm:px-14 sm:pb-16">
+            <div className="flex flex-wrap items-start justify-between gap-6 border-b border-[var(--line-l)] pb-7">
               <div className="flex items-center gap-4">
-                <Diamond className="h-12 w-12" />
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/art/case/logo.png" alt="" className="h-12 w-12" />
                 <div>
-                  <p className="f-slab text-[18px] uppercase leading-none">Department of Diamond Hands</p>
-                  <p className="label mt-1 opacity-70">Office of the contract</p>
+                  <p className="display text-[22px] leading-none">Department of Diamond Hands</p>
+                  <p className="meta mt-1.5 opacity-50">Office of the contract</p>
                 </div>
               </div>
-              <div className="f-type text-[13px] leading-relaxed opacity-80">
-                <p>FILE: 001 / NO TRICKS</p>
-                <p>RE: SUPPLY, ALLOCATION, CONTROLS</p>
-                <p>STATUS: FIXED AT DEPLOY</p>
+              <div className="meta space-y-1 opacity-60 sm:text-right">
+                <p>File: 001 / No tricks</p>
+                <p>Re: Supply, allocation, controls</p>
+                <p>Status: Fixed at deploy</p>
               </div>
             </div>
 
-            <div className="pointer-events-none absolute right-6 top-24 sm:right-14 sm:top-28">
-              <span className="stamp stamp--paper stamp--double !text-[24px] sm:!text-[34px]" data-fx="stamp" data-rot="-14" data-fx-delay="0.3">
+            <div className="relative">
+              <span className="stamp pointer-events-none absolute right-0 top-8 !text-[18px] sm:!text-[26px]" data-fx="stamp" data-rot="-10" data-fx-delay="0.3">
                 Declassified
               </span>
+              <h2 className="display h-m mt-12 max-w-[780px] pr-24" data-fx="lines">The rules apply to everyone.</h2>
+              <p className="body-l mt-6 max-w-[640px] opacity-75" data-fx="rise">
+                A transfer restriction is only interesting if nobody can secretly change it. So $DIAMOND keeps it simple.
+              </p>
             </div>
 
-            <span className="caption mt-10">Section 6. No tricks.</span>
-            <h2 className="headline mt-5 text-[40px] sm:text-[56px] lg:text-[68px]">The rules apply to everyone.</h2>
-            <p className="body mt-5 max-w-[680px]">
-              A transfer restriction is only interesting if nobody can secretly change it. So $DIAMOND keeps it simple.
-            </p>
-
-            {/* the numbers */}
-            <div className="mt-10 grid gap-[3px] border-[3px] border-[var(--ink)] bg-[var(--ink)] sm:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr_1fr_1fr]">
+            <div className="mt-12 grid gap-px border border-[var(--line-l)] bg-[var(--line-l)] sm:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr_1fr_1fr]">
               {[
                 ["1,000,000,000", "$DIAMOND, fixed supply"],
                 ["100%", "genesis liquidity"],
@@ -63,28 +75,27 @@ export function Declassified() {
                 ["0%", "presale"],
                 ["0%", "transfer tax"],
               ].map(([v, k], i) => (
-                <div key={k} className={`bg-[var(--cream)] px-5 py-6 ${i === 0 ? "sm:col-span-2 lg:col-span-1" : ""}`} data-fx="rise" data-fx-delay={i * 0.06}>
-                  <p className={`f-slab leading-none ${i === 0 ? "text-[34px] sm:text-[40px]" : "text-[44px]"}`}>
-                    {i === 0 ? <span data-count="1000000000">0</span> : v}
+                <div key={k} className={`bg-[var(--bone)] px-5 py-6 ${i === 0 ? "sm:col-span-2 lg:col-span-1" : ""}`} data-fx="rise" data-fx-delay={i * 0.06}>
+                  <p className="display text-[clamp(36px,3.4vw,52px)] leading-none tabular-nums">
+                    {i === 0 ? <span data-count="1000000000">{v}</span> : v}
                   </p>
-                  <p className="label mt-2 opacity-70">{k}</p>
+                  <p className="meta mt-3 opacity-55">{k}</p>
                 </div>
               ))}
             </div>
 
-            {/* the checklist */}
-            <ul className="mt-10 grid gap-x-10 gap-y-3 sm:grid-cols-2">
+            <ul className="mt-12 grid gap-x-12 gap-y-4 sm:grid-cols-2">
               {NOS.map((t, i) => (
-                <li key={t} className="flex items-start gap-3" data-fx="rise" data-fx-delay={i * 0.05}>
-                  <span className="f-comic mt-[-2px] text-[28px] leading-none text-[var(--red)]">✗</span>
-                  <span className="type text-[17px]">{t}</span>
+                <li key={t} className="flex items-start gap-4 border-b border-[var(--line-l)] pb-4" data-fx="rise" data-fx-delay={i * 0.04}>
+                  <Cross />
+                  <span className="text-[17px]">{t}</span>
                 </li>
               ))}
             </ul>
 
-            <div className="mt-10 border-[3px] border-dashed border-[var(--ink)]/50 px-5 py-5" data-fx="rise">
-              <p className="label opacity-60">Owner privileges on file. Hover to unredact.</p>
-              <dl className="type mt-3 grid gap-2 text-[16px] sm:grid-cols-2">
+            <div className="mt-12 border border-dashed border-[var(--ink)]/30 p-6" data-fx="rise">
+              <p className="meta opacity-50">Owner privileges on file. Hover to unredact.</p>
+              <dl className="mono mt-4 grid gap-3 text-[14px] sm:grid-cols-2">
                 {[
                   ["Adjustable sell limit", "None. Fixed at 1%."],
                   ["Adjustable cooldown", "None. Fixed at 24h."],
@@ -92,26 +103,24 @@ export function Declassified() {
                   ["Owner switch", "None. Nothing to flip."],
                 ].map(([k, v]) => (
                   <div key={k} className="flex flex-wrap items-baseline gap-x-3">
-                    <dt className="opacity-70">{k}:</dt>
+                    <dt className="opacity-60">{k}:</dt>
                     <dd className="redact m-0" tabIndex={0}>{v}</dd>
                   </div>
                 ))}
               </dl>
             </div>
 
-            <p className="f-type mt-10 text-[18px] uppercase tracking-[0.06em]" data-fx="type">
-              Once live, the mechanism is the mechanism.
-            </p>
+            <p className="mono mt-12 text-[15px] uppercase tracking-[0.12em]" data-fx="rise">Once live, the mechanism is the mechanism.</p>
 
-            <div className="mt-12 flex flex-wrap items-end justify-between gap-8 border-t-[3px] border-dashed border-[var(--ink)] pt-10">
-              <p className="headline text-[34px] sm:text-[46px]" data-fx="rise">
+            <div className="mt-12 flex flex-wrap items-end justify-between gap-8 border-t border-[var(--line-l)] pt-10">
+              <p className="display h-s" data-fx="lines">
                 Don&apos;t trust us.
                 <br />
-                <span className="text-[var(--orange)]">Read the contract.</span>
+                <span className="text-[var(--red)]">Read the contract.</span>
               </p>
-              <div className="flex flex-wrap gap-4" data-fx="rise">
-                <a href={LINKS.contract} className="btn btn--orange">Verified contract</a>
-                <a href={LINKS.lpLock} className="btn">LP lock</a>
+              <div className="flex flex-wrap gap-3" data-fx="rise">
+                <a href={LINKS.contract} className="btn btn--ink">Verified contract <span className="btn__arrow" aria-hidden="true" /></a>
+                <a href={LINKS.lpLock} className="btn btn--line-ink">LP lock</a>
               </div>
             </div>
           </div>
@@ -122,38 +131,41 @@ export function Declassified() {
 }
 
 /* ---------------------------------------------------------------- */
-/* Section 7. A note from the detective.                              */
+/* 06. A very important distinction.                                  */
 /* ---------------------------------------------------------------- */
 export function Memo() {
   return (
-    <section className="bg-[var(--ink)] py-24 text-[var(--cream)] lg:py-32">
-      <div className="mx-auto grid max-w-[1440px] gap-12 px-4 sm:px-6 lg:grid-cols-[1fr_1fr] lg:items-center lg:px-10">
-        <div>
-          <span className="caption" data-fx="rise">Section 7. A very important distinction.</span>
-          <h2 className="poster poster--dark mt-6 text-[44px] sm:text-[64px] lg:text-[80px]" data-fx="slam">
-            <span className="whitespace-nowrap">Anti-jeet</span> doesn&apos;t mean <span className="whitespace-nowrap">anti-sell.</span>
-          </h2>
-        </div>
+    <section className="sec bg-[var(--night)]">
+      <Rip color="var(--paper)" seed={17} inside />
+      <div className="wrap">
+        <Idx n="06" label="A very important distinction" />
+        <h2 className="display h-l mt-12 max-w-[1400px]" data-fx="lines">
+          Anti-jeet doesn&apos;t mean <span className="text-[var(--lime)]">anti-sell.</span>
+        </h2>
 
-        <div className="relative mx-auto w-full max-w-[560px]" data-fx="card" data-rot="1.5">
-          {/* paper clip */}
-          <svg viewBox="0 0 40 90" className="absolute -top-6 left-10 z-[2] h-[90px] w-[40px]" aria-hidden="true">
-            <path d="M12 20v52a8 8 0 0 0 16 0V16a6 6 0 0 0-12 0v50a3 3 0 0 0 6 0V24" fill="none" stroke="#8a8a8a" strokeWidth="3" strokeLinecap="round" />
-          </svg>
-          <div className="lined bg-[var(--cream)] px-8 py-10 text-[var(--ink)] shadow-[10px_10px_0_var(--orange)] sm:px-10">
-            <p className="f-type text-[13px] uppercase tracking-[0.18em] opacity-60">Memo. For the record.</p>
-            <div className="type mt-6 space-y-[28px] text-[16px] leading-[28px]">
+        <div className="mt-14 grid items-center gap-10 lg:mt-20 lg:grid-cols-[1.05fr_1fr] lg:gap-16">
+          <figure className="relative m-0 rotate-[-1.5deg] bg-[var(--bone)] p-2.5 pb-3.5 shadow-[0_30px_60px_rgba(0,0,0,0.5)]" data-fx="rise">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/art/case/autopsy.webp" alt="The autopsy: cause of death, rug pull." className="block aspect-[16/10] w-full object-cover" loading="lazy" />
+            <figcaption className="meta mt-3 flex justify-between px-1 !text-[10px] text-[var(--ink)]/60">
+              <span>Exhibit: autopsy</span>
+              <span>Chart R.I.P.</span>
+            </figcaption>
+          </figure>
+
+          <div className="relative bg-[var(--paper)] p-8 text-[var(--ink)] sm:p-11" data-fx="rise" data-fx-delay="0.1">
+            <div className="flex items-center justify-between border-b border-[var(--line-l)] pb-4">
+              <p className="meta opacity-60">Memo. For the record.</p>
+              <span className="meta opacity-40">Ref. 1027</span>
+            </div>
+            <div className="term mt-6 space-y-3 text-[16px] leading-relaxed">
               <p>$DIAMOND does not guarantee the price goes up.</p>
               <p>It does not mean the market can only fall 1% per day.</p>
               <p>It does not prevent many different holders from selling.</p>
               <p>What it does is much simpler:</p>
             </div>
-            <p className="headline mt-8 text-[30px] text-[var(--orange)] sm:text-[36px]">
-              One wallet cannot dump a large bag all at once.
-            </p>
-            <p className="f-type mt-8 text-[18px]" data-fx="type">
-              That&apos;s it. That&apos;s the experiment.
-            </p>
+            <p className="display mt-7 text-[clamp(32px,2.8vw,44px)] leading-[1] text-[var(--red)]">One wallet cannot dump a large bag all at once.</p>
+            <p className="term mt-6 text-[15px] uppercase tracking-[0.08em]">&gt; That&apos;s it. That&apos;s the experiment.</p>
           </div>
         </div>
       </div>
@@ -162,25 +174,20 @@ export function Memo() {
 }
 
 /* ---------------------------------------------------------------- */
-/* Section 8. FAQ as an interrogation transcript.                     */
+/* 07. FAQ, as a transcript.                                          */
 /* ---------------------------------------------------------------- */
 export function Transcript() {
   return (
-    <section className="halftone halftone--fade bg-[var(--paper)] py-24 lg:py-32">
-      <div className="mx-auto max-w-[1100px] px-4 sm:px-6">
-        <div className="flex flex-wrap items-end justify-between gap-6">
-          <div>
-            <span className="caption" data-fx="rise">Section 8. Interrogation transcript.</span>
-            <h2 className="headline mt-6 text-[40px] sm:text-[56px] lg:text-[68px]" data-fx="rise">Questions for the suspect.</h2>
-          </div>
-          <p className="f-type text-[13px] uppercase leading-relaxed tracking-[0.12em] opacity-70" data-fx="rise">
-            Recorded. Verbatim.
-            <br />
-            Subject: $DIAMOND
-          </p>
-        </div>
-
-        <div className="mt-12" data-fx="rise">
+    <section className="sec sec--light">
+      <Rip color="var(--bone)" seed={5} />
+      <div className="wrap">
+        <SecHead
+          n="07"
+          label="Interrogation transcript"
+          title="Got questions?"
+          aside={<>Recorded. Verbatim.<br />Subject: $DIAMOND</>}
+        />
+        <div className="mt-16 lg:mt-20" data-fx="rise">
           <Faq />
         </div>
       </div>
@@ -189,34 +196,33 @@ export function Transcript() {
 }
 
 /* ---------------------------------------------------------------- */
-/* Section 9. Tokenomics as tagged evidence.                          */
+/* 08. Tokenomics. The evidence locker.                               */
 /* ---------------------------------------------------------------- */
 export function Locker() {
   return (
-    <section id="tokenomics" className="scroll-mt-16 bg-[#2a1a10] py-24 text-[var(--cream)] lg:py-32">
-      <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-10">
-        <div className="flex flex-wrap items-end justify-between gap-6">
-          <div>
-            <span className="caption" data-fx="rise">Section 9. Evidence locker.</span>
-            <h2 className="poster poster--dark mt-6 text-[44px] sm:text-[64px] lg:text-[80px]" data-fx="slam">Simple on purpose.</h2>
-          </div>
-          <p className="label max-w-[260px] text-[var(--paper)]/60" data-fx="rise">
-            Eight tags. Nothing hidden behind any of them.
-          </p>
-        </div>
+    <section id="tokenomics" className="sec sec--night2 scroll-mt-16 overflow-hidden">
+      <Rip color="var(--bone)" seed={21} inside />
+      <SceneBg src="/art/case/lineup.webp" tone="var(--night-2)" height="min(80vh, 780px)" opacity={0.42} position="center 30%" />
+      <div className="wrap relative">
+        <SecHead n="08" label="Evidence locker" title="Simple on purpose." aside="Eight tags. Nothing hidden behind any of them." />
 
-        <div className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-16 grid border-l border-t border-[var(--line-d)] sm:grid-cols-2 lg:mt-20 lg:grid-cols-4">
           {TOKENOMICS.map((t, i) => (
-            <div key={t.k} className="relative pt-6" data-fx="card" data-rot={(i % 3) - 1 + (i % 2 ? 0.6 : -0.4)} data-fx-delay={i * 0.06}>
-              {/* string */}
-              <span className="absolute left-1/2 top-0 h-6 w-px -translate-x-1/2 bg-[var(--paper)]/60" />
-              <div className="tag-sway relative bg-[var(--manila)] px-6 pb-7 pt-8 text-[var(--ink)] shadow-[6px_8px_0_rgba(0,0,0,0.5)]">
-                <span className="absolute left-1/2 top-3 h-3 w-3 -translate-x-1/2 rounded-full border-2 border-[var(--ink)]/50 bg-[#2a1a10]" />
-                <p className="label mt-2 opacity-70">{t.k}</p>
-                <p className={`f-slab mt-3 leading-none ${t.v.length > 8 ? "text-[30px] lg:text-[32px]" : "text-[56px]"}`}>
-                  {i === 0 ? <span data-count="1000000000">0</span> : t.v}
+            <div
+              key={t.k}
+              className="group flex min-h-[230px] flex-col justify-between border-b border-r border-[var(--line-d)] p-7 transition-colors duration-500 hover:bg-[var(--lime)] hover:text-[var(--ink)] sm:p-8"
+              data-fx="rise"
+              data-fx-delay={(i % 4) * 0.06}
+            >
+              <div className="flex items-start justify-between">
+                <p className="meta opacity-60">{t.k}</p>
+                <span className="meta opacity-30">{String(i + 1).padStart(2, "0")}</span>
+              </div>
+              <div>
+                <p className={`display mt-8 leading-none tabular-nums ${t.v.length > 8 ? "text-[clamp(36px,3vw,46px)]" : "text-[clamp(64px,6vw,96px)]"}`}>
+                  {i === 0 ? <span data-count="1000000000">{t.v}</span> : t.v}
                 </p>
-                <p className="type mt-3 text-[14px] opacity-80">{t.s}</p>
+                <p className="body-s mt-3 opacity-60">{t.s}</p>
               </div>
             </div>
           ))}
@@ -227,77 +233,70 @@ export function Locker() {
 }
 
 /* ---------------------------------------------------------------- */
-/* Section 10. Case closed.                                           */
+/* 09. Verdict.                                                       */
 /* ---------------------------------------------------------------- */
 export function CaseClosed() {
   return (
-    <section className="relative overflow-hidden bg-[#0f0c0a] py-28 text-[var(--cream)] lg:py-44">
-      <div className="pointer-events-none absolute inset-0">
-        <img
-          src="/art/matrix.webp"
-          alt=""
-          data-parallax
-          className="h-[120%] w-full object-cover object-[center_30%] opacity-[0.42] grayscale-[0.3]"
-          loading="lazy"
-        />
-        <div className="absolute inset-0 bg-[radial-gradient(80%_70%_at_50%_50%,rgba(15,12,10,0.2),rgba(15,12,10,0.95)_80%)]" />
-        <div className="blinds opacity-60" />
+    <section className="relative overflow-hidden bg-black py-[clamp(110px,12vw,180px)]">
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/art/case/crime-scene.webp" alt="" data-parallax="10" className="absolute inset-x-0 -top-[10%] h-[120%] w-full object-cover object-[center_40%] opacity-[0.38]" loading="lazy" />
+        <div className="absolute inset-0 bg-[radial-gradient(70%_70%_at_50%_50%,rgba(0,0,0,0.25),rgba(0,0,0,0.95)_85%)]" />
       </div>
 
-      <div className="relative mx-auto max-w-[1100px] px-4 text-center sm:px-6">
-        <span className="caption" data-fx="rise">Section 10. Verdict.</span>
-        <h2 className="poster poster--dark mt-8 text-[44px] sm:text-[72px] lg:text-[104px]" data-fx="slam">
-          Paper hands were always a choice.
-          <br />
-          <span className="text-[var(--cyan)]">Not anymore.</span>
+      <div className="wrap relative text-center">
+        <div className="mx-auto max-w-[420px]">
+          <div className="idx meta justify-center" data-fx="rise">
+            <span className="idx__rule" />
+            <span className="idx__n">09</span>
+            <span>Verdict</span>
+            <span className="idx__rule" />
+          </div>
+        </div>
+        <h2 className="display mx-auto mt-10 max-w-[1300px] text-[clamp(36px,4.6vw,80px)] leading-[1]" data-fx="lines">
+          <span className="block lg:whitespace-nowrap">Paper hands were always a choice.</span>
+          <span className="mt-2 block text-[var(--lime)]">Not anymore.</span>
         </h2>
-        <p className="body mx-auto mt-8 max-w-[600px] text-[var(--paper)]/80" data-fx="rise">
-          The world&apos;s first anti-jeet memecoin. Built for an experiment crypto has spent years talking about but
-          never enforcing:
-        </p>
-        <p className="f-comic mt-6 text-[36px] leading-none text-[var(--mustard)] sm:text-[52px]" data-fx="rise">
-          Diamond hands. Enforced by code.
-        </p>
 
-        <div className="mt-12 flex flex-wrap justify-center gap-4" data-fx="rise">
-          <a href={LINKS.buy} className="btn btn--orange">Buy $DIAMOND</a>
-          <a href={LINKS.dexscreener} className="btn btn--ghost">DexScreener</a>
-          <a href={LINKS.x} className="btn btn--ghost">X</a>
-          <a href={LINKS.telegram} className="btn btn--ghost">Telegram</a>
-          <a href={LINKS.contract} className="btn btn--ghost">Verified contract</a>
+        <p className="term mt-7 text-[clamp(18px,1.7vw,24px)] uppercase tracking-[0.08em] text-[var(--lime)]" data-fx="type">&gt; Diamond hands. Enforced by code.</p>
+
+        <div className="mt-12 flex flex-wrap items-center justify-center gap-x-8 gap-y-4" data-fx="rise">
+          <a href={LINKS.buy} className="btn btn--lime">Buy $DIAMOND <span className="btn__arrow" aria-hidden="true" /></a>
+          <span className="meta flex gap-6 text-[var(--bone)]/60">
+            <a href={LINKS.dexscreener} className="link-u hover:text-[var(--bone)]">DexScreener</a>
+            <a href={LINKS.x} className="link-u hover:text-[var(--bone)]">X</a>
+            <a href={LINKS.telegram} className="link-u hover:text-[var(--bone)]">Telegram</a>
+            <a href={LINKS.contract} className="link-u hover:text-[var(--bone)]">Contract</a>
+          </span>
         </div>
         <div className="mt-8 flex justify-center" data-fx="rise">
           <CopyCA center />
         </div>
-
-        <div className="mt-16 flex justify-center">
-          <span className="stamp stamp--dark stamp--double !text-[36px] sm:!text-[64px]" data-fx="stamp" data-rot="-7" data-fx-delay="0.3" data-confetti="1">
+        <div className="mt-12 flex justify-center">
+          <span className="stamp stamp--lime !border-[3px] !text-[22px] sm:!text-[30px]" data-fx="stamp" data-rot="-5" data-fx-delay="0.2">
             Case closed
           </span>
         </div>
       </div>
-      <Tear color="var(--paper)" className="absolute bottom-0 left-0 z-[2]" />
     </section>
   );
 }
 
 /* ---------------------------------------------------------------- */
-/* Section 11. Memes, as surveillance photos.                         */
+/* 10. Memes, as surveillance photos.                                 */
 /* ---------------------------------------------------------------- */
 export function Surveillance() {
   return (
-    <section className="halftone halftone--fade overflow-hidden bg-[var(--paper)] py-24 lg:py-32">
-      <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-10">
-        <div className="flex flex-wrap items-end justify-between gap-6">
-          <div>
-            <span className="caption" data-fx="rise">Section 11. Surveillance photos.</span>
-            <h2 className="headline mt-6 text-[40px] sm:text-[56px] lg:text-[68px]" data-fx="rise">Built for the timeline.</h2>
-          </div>
-          <p className="body max-w-[360px]" data-fx="rise">
-            Use them. Post them. Remix them. The $DIAMOND meme library is free for the community to use across socials.
-          </p>
-        </div>
-
+    <section className="sec sec--paper !py-[clamp(80px,8vw,120px)]">
+      <Rip color="var(--paper)" seed={9} />
+      <div className="wrap">
+        <SecHead
+          n="10"
+          label="Surveillance photos"
+          title="Built for the timeline."
+          size="h-m"
+          aside="Use them. Post them. Remix them. The $DIAMOND meme library is free for the community to use across socials."
+        />
         <MemeWall />
       </div>
     </section>
@@ -309,33 +308,60 @@ export function Surveillance() {
 /* ---------------------------------------------------------------- */
 export function Footer() {
   return (
-    <footer className="relative overflow-hidden border-t-[3px] border-[var(--ink)] bg-[var(--ink)] pb-10 pt-14 text-[var(--cream)]">
-      <div className="watermark pointer-events-none absolute -bottom-6 left-0 whitespace-nowrap text-[26vw] lg:text-[22vw]">$DIAMOND</div>
-      <div className="relative mx-auto grid max-w-[1440px] gap-10 px-4 sm:px-6 lg:grid-cols-[1fr_1.2fr] lg:px-10">
-        <div>
-          <div className="flex items-center gap-3">
-            <Diamond className="h-8 w-8" />
-            <span className="f-slab text-[28px] uppercase leading-none">$DIAMOND</span>
+    <footer className="relative overflow-hidden bg-[var(--night)] pt-24">
+      <div className="wrap">
+        <div className="grid gap-14 border-b border-[var(--line-d)] pb-16 lg:grid-cols-[1.2fr_1fr]">
+          <div>
+            <div className="flex items-center gap-4">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/art/case/logo.png" alt="" className="h-14 w-14" />
+              <span className="display text-[40px] leading-none">$DIAMOND</span>
+            </div>
+            <p className="term mt-6 text-[clamp(17px,1.5vw,21px)] text-[var(--bone)]/85"><span className="text-[var(--lime)]">&gt;</span> You can sell. You just can&apos;t jeet.</p>
           </div>
-          <p className="f-comic mt-4 text-[26px] leading-none text-[var(--mustard)]">You can sell. You just can&apos;t jeet.</p>
-          <div className="label mt-8 flex flex-wrap gap-x-6 gap-y-2 text-[var(--paper)]/70">
-            <a href={LINKS.contract} className="hover:text-[var(--cyan)]">Contract</a>
-            <a href={LINKS.dexscreener} className="hover:text-[var(--cyan)]">DexScreener</a>
-            <a href={LINKS.x} className="hover:text-[var(--cyan)]">X</a>
-            <a href={LINKS.telegram} className="hover:text-[var(--cyan)]">Telegram</a>
+          <div className="grid grid-cols-2 gap-8 sm:grid-cols-3">
+            <div>
+              <p className="meta opacity-40">The file</p>
+              <ul className="mt-4 space-y-2.5 text-[15px]">
+                <li><a href="#rule" className="link-u">The 1% rule</a></li>
+                <li><a href="#why" className="link-u">Why Diamond</a></li>
+                <li><a href="#tokenomics" className="link-u">Tokenomics</a></li>
+              </ul>
+            </div>
+            <div>
+              <p className="meta opacity-40">On chain</p>
+              <ul className="mt-4 space-y-2.5 text-[15px]">
+                <li><a href={LINKS.contract} className="link-u">Contract</a></li>
+                <li><a href={LINKS.dexscreener} className="link-u">DexScreener</a></li>
+                <li><a href={LINKS.lpLock} className="link-u">LP lock</a></li>
+              </ul>
+            </div>
+            <div>
+              <p className="meta opacity-40">Socials</p>
+              <ul className="mt-4 space-y-2.5 text-[15px]">
+                <li><a href={LINKS.x} className="link-u">X</a></li>
+                <li><a href={LINKS.telegram} className="link-u">Telegram</a></li>
+              </ul>
+            </div>
           </div>
         </div>
-        <div>
-          <p className="type text-[13px] leading-relaxed text-[var(--paper)]/55">
-            $DIAMOND is a memecoin and experimental token mechanism. Cryptocurrency is volatile and involves substantial
-            risk. The anti-jeet mechanism restricts the rate at which individual addresses can move $DIAMOND; it does
-            not guarantee price stability, liquidity, profitability, or protection against market losses.
+        <div className="grid gap-8 py-10 lg:grid-cols-[1.2fr_1fr]">
+          <p className="max-w-[640px] text-[13px] leading-relaxed text-[var(--bone)]/45">
+            $DIAMOND is a memecoin and experimental token mechanism. Cryptocurrency is volatile and involves substantial risk.
+            The anti-jeet mechanism restricts the rate at which individual addresses can move $DIAMOND; it does not guarantee
+            price stability, liquidity, profitability, or protection against market losses.
           </p>
-          <p className="label mt-6 text-[var(--paper)]/50">© 2026 Diamond Hands. Case file No. 001.</p>
+          <div className="meta flex flex-col gap-2 text-[var(--bone)]/40 lg:items-end">
+            <span>© 2026 Diamond Hands. Case file No. 001.</span>
+            <span>End of file. Hold the line.</span>
+          </div>
         </div>
       </div>
-      <p className="f-type relative mx-auto mt-16 max-w-[1440px] px-4 text-[12px] uppercase tracking-[0.2em] text-[var(--paper)]/35 sm:px-6 lg:px-10" data-fx="type">
-        End of file. Hold the line.
+      <p
+        className="display pointer-events-none select-none whitespace-nowrap text-center text-[23vw] leading-[0.78] text-transparent [-webkit-text-stroke:1px_rgba(204,255,0,0.22)]"
+        aria-hidden="true"
+      >
+        $DIAMOND
       </p>
     </footer>
   );

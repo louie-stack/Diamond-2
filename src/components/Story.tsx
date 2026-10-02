@@ -1,243 +1,72 @@
-import { Burst } from "./Burst";
-import { Diamond } from "./Diamond";
 import Calculator from "./Calculator";
-import { Tear } from "./Tear";
+import SceneBg from "./SceneBg";
+import SecHead from "./SecHead";
+import Rip from "./Rip";
 
 /* ---------------------------------------------------------------- */
-/* Section 2. The idea, told as a three-panel strip.                  */
+/* 01. The crime, as a triptych.                                     */
 /* ---------------------------------------------------------------- */
-export function TheCase() {
-  return (
-    <section className="halftone halftone--fade relative overflow-hidden bg-[var(--paper)] py-24 lg:py-32">
-      <Tear color="#3b2414" className="absolute bottom-0 left-0 z-[2]" />
-      <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-10">
-        <div className="mb-10 flex flex-wrap items-end justify-between gap-6">
-          <div>
-            <span className="caption" data-fx="rise">Chapter one. The crime.</span>
-            <h2 className="headline mt-6 max-w-[900px] text-[40px] sm:text-[56px] lg:text-[72px]" data-fx="rise" data-fx-delay="0.1">
-              Diamond hands aren&apos;t just a promise anymore.
-            </h2>
-          </div>
-          <p className="label max-w-[240px] opacity-70" data-fx="rise" data-fx-delay="0.2">
-            Same story. Every chart. Every cycle. Until now.
-          </p>
-        </div>
-
-        <div className="strip -mx-4 sm:-mx-6 lg:-mx-10">
-        <div className="strip__track grid gap-8 px-4 sm:px-6 lg:px-0">
-          {/* Panel 1 */}
-          <div className="strip__panel panel panel-hover lined relative flex min-h-[380px] flex-col justify-between p-6 lg:p-10" data-fx="card" data-rot="-1.2">
-            <span className="caption absolute -top-4 left-5 !text-[13px]">Panel 1</span>
-            <p className="body pt-6 lg:text-[24px]">Every memecoin tells holders the same thing:</p>
-            <div className="bubble mt-6 mb-6 lg:max-w-[75%] lg:text-[38px]">
-              Don&apos;t jeet.
-              <br />
-              Don&apos;t dump.
-              <br />
-              Hold the line.
-            </div>
-            <p className="label opacity-60">Narrator: they did not hold the line.</p>
-          </div>
-
-          {/* Panel 2 */}
-          <div className="strip__panel panel panel-hover panel--dark relative flex min-h-[380px] flex-col justify-between overflow-hidden p-6 lg:p-10" data-fx="card" data-rot="1.4">
-            <span className="caption absolute -top-4 left-5 !text-[13px]">Panel 2</span>
-            <p className="body pt-6 text-[var(--paper)] lg:text-[24px]">Then one whale hits sell and nukes the chart.</p>
-            <svg viewBox="0 0 600 260" className="absolute inset-x-0 bottom-0 h-[62%] w-full" aria-hidden="true">
-              <defs>
-                <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                  <path d="M40 0H0V40" fill="none" stroke="rgba(251,244,226,0.12)" strokeWidth="1" />
-                </pattern>
-              </defs>
-              <rect width="600" height="260" fill="url(#grid)" />
-              <path
-                data-fx="draw"
-                d="M0 200 L60 170 L110 185 L160 120 L210 135 L260 80 L310 95 L360 40 L400 55 L430 50 L436 225 L470 232 L520 226 L600 240"
-                fill="none"
-                stroke="var(--cyan)"
-                strokeWidth="5"
-                strokeLinejoin="round"
-                strokeLinecap="round"
-              />
-            </svg>
-            <div className="pointer-events-none absolute left-6 top-24 rotate-[-12deg]" data-fx="slam" data-fx-delay="0.5">
-              <span className="f-cond inline-block rounded-full border-[3px] border-[var(--ink)] bg-[var(--red)] px-4 py-2 text-[15px] font-black uppercase tracking-[0.1em] text-[var(--cream)] shadow-[0_5px_0_#5a0a0c]">
-                Sell
-              </span>
-            </div>
-            <span className="label absolute right-6 top-[46%] text-[var(--cyan)]/70">the whale</span>
-            <div className="relative flex justify-end pr-2">
-              <Burst size={46} fill="var(--red)">Nuked!</Burst>
-            </div>
-          </div>
-
-          {/* Panel 3 */}
-          <div className="strip__panel panel panel-hover relative flex min-h-[380px] flex-col justify-between !bg-[var(--mustard)] p-6 lg:p-10" data-fx="card" data-rot="-0.8">
-            <span className="caption absolute -top-4 left-5 !bg-[var(--cream)] !text-[13px]">Panel 3</span>
-            <div className="pt-6">
-              <p className="f-comic text-[44px] leading-none lg:text-[64px]">$DIAMOND changes the rules.</p>
-              <p className="body mt-5 lg:text-[24px]">
-                Instead of asking people to have diamond hands, the mechanism is built directly into the token.
-              </p>
-            </div>
-            <div className="flex items-end justify-between">
-              <span className="label opacity-70">Mechanism, not manners.</span>
-              <Diamond className="h-20 w-20 text-[var(--ink)]" />
-            </div>
-          </div>
-        </div>
-        </div>
-
-        <div className="mt-24 grid gap-10 lg:grid-cols-[1.4fr_1fr] lg:items-center">
-          <div>
-            <p className="headline text-[34px] sm:text-[48px] lg:text-[60px]" data-fx="rise">
-              Buy as much as you want.
-              <br />
-              Sell from day one.
-              <br />
-              <span className="text-[var(--orange)]">But no wallet can dump its entire bag at once.</span>
-            </p>
-            <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3" data-fx="rise" data-fx-delay="0.1">
-              {["No promises.", "No pinky swears.", "No “trust the whales.”"].map((t) => (
-                <span key={t} className="strike f-type text-[20px] opacity-80">
-                  {t}
-                </span>
-              ))}
-            </div>
-          </div>
-          <div className="flex justify-center lg:justify-end" data-fx="slam" data-fx-delay="0.2">
-            <Burst size={80} fill="var(--mustard)" color="var(--ink)">
-              Just
-              <br />
-              code.
-            </Burst>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ---------------------------------------------------------------- */
-/* Section 3. The 1% rule as an evidence board.                       */
+/* 02. The 1% rule, as four exhibits.                                 */
 /* ---------------------------------------------------------------- */
 const EXHIBITS = [
   {
-    tag: "Exhibit A",
-    title: "Buy freely",
-    lines: [
-      "There is no buy cooldown.",
-      "Buy 1 DIAMOND. Buy 1,000,000 DIAMOND. Buy 100,000,000 DIAMOND.",
-      "Receiving $DIAMOND does not start or reset your cooldown.",
-    ],
-    rot: -2.5,
+    tag: "Exhibit A", mark: "A", title: "Buy freely", big: "∞",
+    lines: ["There is no buy cooldown. Buy 1 or 100,000,000.", "Receiving $DIAMOND never starts or resets it."],
   },
   {
-    tag: "Exhibit B",
-    title: "Sell immediately",
-    lines: ["Your first outbound transaction is available straight away.", "There is no initial 24-hour lock."],
-    rot: 1.8,
+    tag: "Exhibit B", mark: "B", title: "Sell immediately", big: "Now",
+    lines: ["Your first outbound is available straight away.", "There is no initial 24-hour lock."],
   },
   {
-    tag: "Exhibit C",
-    title: "Max 1%",
-    lines: ["Each successful non-zero outbound transaction can move a maximum of:", "1% of your current bag."],
-    rot: -1.2,
-    big: "1%",
+    tag: "Exhibit C", mark: "C", title: "Max 1%", big: "1%",
+    lines: ["Each successful outbound can move a maximum of 1% of your current bag.", "No matter how big the bag."],
   },
   {
-    tag: "Exhibit D",
-    title: "Then 24 hours",
-    lines: [
-      "Once you make a successful non-zero outbound transaction, a rolling 24-hour cooldown begins.",
-      "Sell less than your maximum? The unused amount does not accumulate.",
-      "After 24 hours, your limit is recalculated from your current balance.",
-    ],
-    rot: 2.2,
-    big: "24h",
+    tag: "Exhibit D", mark: "D", title: "Then 24 hours", big: "24h",
+    lines: ["Each outbound starts a rolling 24-hour cooldown.", "Unused allowance never carries over."],
   },
 ];
 
 export function EvidenceBoard() {
   return (
-    <section id="rule" className="scroll-mt-16 bg-[#3b2414] py-6 lg:py-10">
-      <div className="cork relative mx-3 border-[12px] border-[#4a2c14] shadow-[inset_0_0_80px_rgba(0,0,0,0.55)] sm:mx-6 lg:mx-10">
-        <div className="relative mx-auto max-w-[1360px] px-4 py-20 sm:px-8 lg:px-12 lg:py-28">
-          {/* Suspect photo, pinned top left */}
-          <div className="absolute left-6 top-8 hidden w-[200px] lg:block xl:w-[230px]" data-fx="card" data-rot="-7">
-            <span className="pin left-1/2 -top-2 -translate-x-1/2" />
-            <div className="polaroid !pb-9">
-              <img src="/art/precious.webp" alt="The suspect, holding a diamond." width={1600} height={900} className="photo block aspect-[4/3] w-full object-cover object-[20%_center]" loading="lazy" />
-              <p className="scrawl mt-3 text-[26px]">the suspect</p>
-            </div>
-          </div>
+    <section id="rule" className="sec sec--night2 scroll-mt-16 overflow-hidden">
+      <SceneBg src="/art/case/pattern.webp" tone="var(--night-2)" height="min(92vh, 900px)" opacity={0.5} position="center 30%" />
+      <div className="wrap relative">
+        <SecHead n="02" label="The 1% rule" size="h-m" title="One rule changes the game." aside="Four exhibits. One mechanism. No exceptions." />
 
-          {/* Sticky note, top right */}
-          <div className="absolute right-8 top-14 hidden w-[210px] lg:block" data-fx="card" data-rot="5">
-            <span className="tape -top-3 left-1/2 -translate-x-1/2 rotate-[-3deg]" />
-            <div className="sticky px-5 pb-6 pt-7">
-              <p className="f-hand text-[26px] font-bold leading-[1.05]">1% per 24h.<br />No exceptions.<br />Not even whales!!</p>
-              <p className="f-hand mt-3 text-[18px] opacity-70">(check the contract)</p>
-            </div>
-          </div>
-
-          {/* Header card, pinned */}
-          <div className="relative mx-auto mb-20 max-w-[820px] lg:mb-28" data-fx="card" data-rot="-1">
-            <span className="pin left-1/2 -top-2 -translate-x-1/2" />
-            <div className="panel !shadow-[10px_10px_0_rgba(0,0,0,0.45)] px-8 pb-8 pt-9 text-center">
-              <span className="caption">Section 3. The 1% rule.</span>
-              <h2 className="headline mt-5 text-[40px] sm:text-[60px] lg:text-[76px]">One rule changes the game.</h2>
-              <p className="type mt-4 opacity-70">Four exhibits. One mechanism. No exceptions.</p>
-            </div>
-          </div>
-
-          {/* String between the four pins (desktop) */}
-          <div className="relative">
-            <svg
-              viewBox="0 0 1000 60"
-              preserveAspectRatio="none"
-              className="pointer-events-none absolute inset-x-0 -top-2 z-[2] hidden h-[60px] w-full lg:block"
-              aria-hidden="true"
+        <div className="mt-16 grid border-l border-t border-[var(--line-d)] sm:grid-cols-2 lg:mt-24 lg:grid-cols-4">
+          {EXHIBITS.map((e, i) => (
+            <article
+              key={e.tag}
+              className="group relative flex min-h-[440px] flex-col border-b border-r border-[var(--line-d)] p-7 transition-colors duration-500 hover:bg-[var(--night-3)] sm:p-8"
+              data-fx="rise"
+              data-fx-delay={i * 0.08}
             >
-              <path
-                data-fx="draw"
-                d="M125 4 C 200 34, 300 34, 375 4 C 450 34, 550 34, 625 4 C 700 34, 800 34, 875 4"
-                fill="none"
-                stroke="var(--red)"
-                strokeWidth="3"
-              />
-            </svg>
+              <div className="flex items-start justify-between">
+                <span className="meta text-[var(--lime)]">{e.tag}</span>
+                <span className="display text-[44px] leading-none text-transparent [-webkit-text-stroke:1px_rgba(236,230,214,0.25)]">{e.mark}</span>
+              </div>
+              <h3 className="display mt-10 whitespace-nowrap text-[clamp(26px,2.3vw,36px)]">{e.title}</h3>
+              <p className="display mt-5 text-[clamp(56px,4.6vw,76px)] font-bold leading-[0.9] text-[var(--lime)]">
+                {e.big === "∞" ? (
+                  <svg viewBox="0 0 120 60" className="inline-block h-[0.62em] w-auto align-baseline" aria-label="Unlimited">
+                    <path d="M60 30 C 46 8, 12 8, 12 30 C 12 52, 46 52, 60 30 C 74 8, 108 8, 108 30 C 108 52, 74 52, 60 30 Z" fill="none" stroke="currentColor" strokeWidth="9" />
+                  </svg>
+                ) : (
+                  e.big
+                )}
+              </p>
+              <div className="mt-auto space-y-3 pt-10">
+                {e.lines.map((l) => (
+                  <p key={l} className="body-s text-[var(--bone)]/70">{l}</p>
+                ))}
+              </div>
+            </article>
+          ))}
+        </div>
 
-            <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
-              {EXHIBITS.map((e, i) => (
-                <div key={e.tag} className="relative" data-fx="card" data-rot={e.rot} data-fx-delay={i * 0.08}>
-                  <span className="pin left-1/2 -top-2 -translate-x-1/2" />
-                  <div className="lined flex flex-col bg-[var(--cream)] lg:min-h-[420px] px-6 pb-6 pt-8 shadow-[6px_8px_0_rgba(0,0,0,0.45)]">
-                    <span className="label text-[var(--red)]">{e.tag}</span>
-                    <h3 className="headline mt-3 text-[34px] leading-[1]">{e.title}</h3>
-                    {e.big && (
-                      <div className="poster poster--flat mt-5 text-[84px] leading-none">{e.big}</div>
-                    )}
-                    <div className="mt-5 space-y-3">
-                      {e.lines.map((l) => (
-                        <p key={l} className="type text-[15px]">
-                          {l}
-                        </p>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* A worked example, on a polaroid-style note */}
-          <div className="mt-20 flex justify-center lg:mt-28">
-            <div className="relative w-full max-w-[640px]" data-fx="card" data-rot="1.5">
-              <span className="tape -top-3 left-1/2 z-[2] -translate-x-1/2 rotate-[-4deg]" />
-              <Calculator />
-            </div>
-          </div>
+        <div className="mt-20 lg:mt-28" data-fx="rise">
+          <Calculator />
         </div>
       </div>
     </section>
@@ -245,87 +74,70 @@ export function EvidenceBoard() {
 }
 
 /* ---------------------------------------------------------------- */
-/* Section 4. Whales, as a mugshot and a lineup.                      */
+/* 03. Whales. A booking photo and the arithmetic.                    */
 /* ---------------------------------------------------------------- */
 export function Wanted() {
-  const rows = ["7'", "6'", "5'", "4'", "3'"];
+  const rows = ["7'0\"", "6'0\"", "5'0\"", "4'0\"", "3'0\""];
   return (
-    <section className="relative overflow-hidden bg-[#14110f] py-24 text-[var(--cream)] lg:py-32">
-      <div className="scan pointer-events-none absolute inset-0" />
-      <div className="relative mx-auto grid max-w-[1440px] gap-14 px-4 sm:px-6 lg:grid-cols-[1fr_1.1fr] lg:items-center lg:gap-20 lg:px-10">
-        {/* Mugshot */}
-        <div className="relative mx-auto w-full max-w-[560px]" data-fx="flash">
-          <span className="label absolute -bottom-9 left-0 text-[var(--paper)]/50">Booking photo. Do not release.</span>
-          <div className="relative border-[3px] border-[var(--cream)] bg-[#2a2622] p-3 shadow-[10px_10px_0_var(--orange)]">
-            <div className="relative overflow-hidden">
-              {/* height chart */}
-              <div className="pointer-events-none absolute inset-0 z-[1] flex flex-col justify-between py-4">
-                {rows.map((r) => (
-                  <div key={r} className="flex items-center gap-3 px-3">
-                    <span className="f-type text-[12px] text-[var(--cream)]/70">{r}</span>
-                    <span className="h-px flex-1 bg-[var(--cream)]/35" />
-                  </div>
-                ))}
-              </div>
-              <img
-                src="/art/aristocrat.webp"
-                alt="The whale, in a tuxedo, being told no."
-                className="photo relative block aspect-[4/3] w-full object-cover object-[35%_center] grayscale-[0.35] contrast-[1.1]"
-                loading="lazy"
-              />
-            </div>
-            <div className="mt-3 flex items-center justify-between border-[3px] border-[var(--cream)] bg-[var(--cream)] px-4 py-3 text-[var(--ink)]">
-              <div>
-                <p className="label">Holder No. 0005</p>
-                <p className="f-slab text-[26px] uppercase leading-none">The whale</p>
-              </div>
-              <div className="text-right">
-                <p className="label">Bag size</p>
-                <p className="f-slab text-[26px] leading-none">5% of supply</p>
-              </div>
+    <section className="sec sec--light overflow-hidden">
+      <div className="wrap grid gap-16 lg:grid-cols-[1fr_1.05fr] lg:items-center lg:gap-24">
+        <figure className="relative m-0">
+          <div className="vf relative overflow-hidden bg-[var(--night)]" data-fx="img">
+            <span className="vf__b" />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/art/case/interrogation.webp" alt="The whale, in interrogation room 3." className="block aspect-[4/5] w-full object-cover object-[78%_center]" loading="lazy" />
+            <div className="pointer-events-none absolute inset-0 flex flex-col justify-between py-[12%]">
+              {rows.map((r) => (
+                <div key={r} className="flex items-center gap-3 px-5">
+                  <span className="mono text-[11px] text-[var(--bone)]/70">{r}</span>
+                  <span className="h-px flex-1 bg-[var(--bone)]/25" />
+                </div>
+              ))}
             </div>
           </div>
-          <span className="stamp stamp--dark stamp--double absolute -right-5 -top-5 !bg-[#14110f] !text-[22px]" data-fx="stamp" data-rot="9" data-fx-delay="0.5">
+          <figcaption className="mt-px flex items-center justify-between bg-[var(--ink)] px-5 py-4 text-[var(--bone)]">
+            <div>
+              <p className="meta opacity-50">Holder No. 0005</p>
+              <p className="display mt-1 text-[30px] leading-none">The whale</p>
+            </div>
+            <div className="text-right">
+              <p className="meta opacity-50">Bag size</p>
+              <p className="display mt-1 text-[30px] leading-none text-[var(--lime)]">5% of supply</p>
+            </div>
+          </figcaption>
+          <span className="stamp absolute -right-3 top-6 bg-[var(--bone)] !text-[16px] sm:!text-[20px]" data-fx="stamp" data-rot="8" data-fx-delay="0.6">
             Can&apos;t dump
           </span>
-        </div>
+        </figure>
 
-        {/* Copy */}
         <div>
-          <span className="caption" data-fx="rise">Section 4. Whales.</span>
-          <h2 className="poster poster--dark mt-6 text-[44px] sm:text-[64px] lg:text-[80px]" data-fx="slam">
-            Whales can buy.
-            <br />
-            Whales can&apos;t dump.
-          </h2>
-          <p className="body mt-7 max-w-[560px] text-[var(--paper)]/85" data-fx="rise">
+          <SecHead n="03" label="Whales" size="h-m" title={<>Whales can buy.<br />Whales can&apos;t dump.</>} />
+          <p className="body-l mt-8 max-w-[560px] opacity-80" data-fx="rise">
             A whale owning 5% of the supply does not get to dump 5% into the pool. Its maximum next outbound is:
           </p>
 
-          <div className="mt-6 grid max-w-[600px] grid-cols-[1fr_auto_1fr] items-center gap-3 border-y-[3px] border-[var(--cream)]/30 py-6" data-fx="rise">
+          <div className="mt-8 grid max-w-[620px] grid-cols-[1fr_auto_1fr] items-end gap-4 border-y border-[var(--line-l)] py-8" data-fx="rise">
             <div>
-              <p className="label text-[var(--mustard)]">1% of its 5% bag</p>
-              <p className="f-slab mt-1 text-[40px] leading-none sm:text-[56px]">1% × 5%</p>
+              <p className="meta opacity-50">1% of its 5% bag</p>
+              <p className="display mt-3 text-[clamp(48px,5vw,72px)] leading-none">1% × 5%</p>
             </div>
-            <span className="f-comic text-[40px] text-[var(--cyan)]">=</span>
+            <span className="display pb-1 text-[48px] leading-none opacity-30">=</span>
             <div className="text-right">
-              <p className="label text-[var(--mustard)]">of total supply</p>
-              <p className="f-slab mt-1 text-[40px] leading-none text-[var(--cyan)] sm:text-[56px]">0.05%</p>
+              <p className="meta opacity-50">of total supply</p>
+              <p className="display mt-3 inline-block bg-[var(--lime)] px-2 text-[clamp(48px,5vw,72px)] leading-none">0.05%</p>
             </div>
           </div>
 
-          <p className="body mt-6 max-w-[560px] text-[var(--paper)]/85" data-fx="rise">
+          <p className="body-l mt-8 max-w-[560px] opacity-80" data-fx="rise">
             Then it waits 24 hours. The same rule applies again based on whatever balance remains.
           </p>
 
-          <p className="f-comic mt-10 text-[40px] leading-none text-[var(--mustard)] sm:text-[52px]" data-fx="rise">
-            Big bag? Same rules.
-          </p>
-          <ul className="mt-6 flex flex-wrap gap-4" data-fx="rise">
+          <p className="display mt-12 text-[clamp(40px,3.6vw,56px)] leading-none" data-fx="rise">Big bag? Same rules.</p>
+          <ul className="mt-6 border-t border-[var(--line-l)]">
             {["No special whale rules", "No VIP wallets", "No exceptions for insiders"].map((t, i) => (
-              <li key={t} className="flex items-center gap-3 border-[3px] border-[var(--cream)]/80 px-4 py-3">
-                <span className="f-type text-[15px] uppercase tracking-[0.06em]">{t}</span>
-                <span className="stamp stamp--dark !border-[3px] !px-2 !py-1 !text-[12px]" data-fx="stamp" data-rot={i % 2 ? 8 : -8} data-fx-delay={0.3 + i * 0.15}>
+              <li key={t} className="flex items-center justify-between border-b border-[var(--line-l)] py-4" data-fx="rise" data-fx-delay={i * 0.06}>
+                <span className="text-[17px] font-medium">{t}</span>
+                <span className="stamp !border-2 !px-2 !py-1 !text-[11px]" data-fx="stamp" data-rot={i % 2 ? 4 : -4} data-fx-delay={0.4 + i * 0.15}>
                   Denied
                 </span>
               </li>
@@ -338,63 +150,71 @@ export function Wanted() {
 }
 
 /* ---------------------------------------------------------------- */
-/* Section 5. The anti-jeet meta, under a single lamp.                */
+/* 04. The interrogation, under one lamp.                             */
 /* ---------------------------------------------------------------- */
 export function Interrogation() {
   return (
-    <section id="why" className="spot relative scroll-mt-16 overflow-hidden bg-[#070605] py-28 text-[var(--cream)] lg:py-40">
-      {/* the lamp */}
-      <div className="lamp-wire pointer-events-none absolute left-1/2 top-0 h-[70vh] w-[2px] -translate-x-1/2 bg-gradient-to-b from-[var(--cream)]/40 to-transparent" />
-      <div className="lamp-cone pointer-events-none absolute left-1/2 top-0 -translate-x-1/2">
-        <div className="h-0 w-0 border-l-[220px] border-r-[220px] border-t-[520px] border-l-transparent border-r-transparent border-t-[rgba(232,181,59,0.10)] blur-[2px] sm:border-l-[360px] sm:border-r-[360px] sm:border-t-[720px]" />
-      </div>
+    <section id="why" data-spot className="sec relative scroll-mt-16 overflow-hidden bg-black !pb-[clamp(140px,15vw,230px)] [--mx:50%] [--my:0%]">
+      <Rip color="var(--bone)" seed={13} inside />
+      <SceneBg src="/art/case/surveillance.webp" tone="#000" height="min(100vh, 960px)" opacity={0.42} position="center 40%" />
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{ background: "radial-gradient(640px 640px at var(--mx) var(--my), rgba(204,255,0,0.09), transparent 70%), radial-gradient(60% 50% at 50% 0%, rgba(236,230,214,0.08), transparent 70%)" }}
+      />
+      <div className="wrap relative">
+        <div className="mx-auto max-w-[1100px] text-center">
+          <div className="mx-auto max-w-[520px]">
+            <div className="idx meta justify-center" data-fx="rise">
+              <span className="idx__rule" />
+              <span className="idx__n">04</span>
+              <span>The interrogation</span>
+              <span className="idx__rule" />
+            </div>
+          </div>
 
-      <div className="relative mx-auto max-w-[1000px] px-4 text-center sm:px-6">
-        <span className="caption" data-fx="rise">Section 5. The interrogation.</span>
+          <p className="term mx-auto mt-10 text-[14px] uppercase tracking-[0.06em] text-[var(--lime)] lg:whitespace-nowrap xl:text-[15px]" data-fx="type">
+            &gt; Memecoins have always rewarded diamond hands. $DIAMOND makes them the mechanism.
+          </p>
+          <h2 className="display h-l mx-auto mt-8 max-w-[1100px]" data-fx="lines">
+            What if the contract made mass-dumping impossible?
+          </h2>
+        </div>
 
-        <p className="f-type mt-10 text-[17px] uppercase tracking-[0.12em] text-[var(--mustard)] sm:text-[20px]" data-fx="type">
-          Memecoins have always rewarded diamond hands. $DIAMOND makes them the mechanism.
-        </p>
-
-        <p className="body mx-auto mt-8 max-w-[640px] text-[var(--paper)]/75" data-fx="rise">
-          Traditional memecoins depend on holders voluntarily choosing not to dump. $DIAMOND asks a different question:
-        </p>
-
-        <h2 className="poster poster--dark mx-auto mt-10 max-w-[900px] text-[38px] sm:text-[62px] lg:text-[84px]" data-fx="slam">
-          What if the contract made <span className="whitespace-nowrap">mass-dumping</span> impossible?
-        </h2>
-
-        <div className="mx-auto mt-14 grid max-w-[760px] gap-3 text-left sm:grid-cols-3" data-fx="rise">
-          {["You can still take profit.", "You can still leave.", "You can still sell from the moment you buy."].map((t) => (
-            <div key={t} className="border-[3px] border-[var(--cream)]/25 px-5 py-4">
-              <span className="f-type text-[11px] uppercase tracking-[0.2em] text-[var(--cyan)]">Permitted</span>
-              <p className="body mt-2 text-[var(--paper)]">{t}</p>
+        <div className="mx-auto mt-16 grid max-w-[980px] gap-px bg-[var(--line-d)] sm:grid-cols-3">
+          {["You can still take profit.", "You can still leave.", "You can still sell from the moment you buy."].map((t, i) => (
+            <div key={t} className="bg-black p-6 sm:p-7" data-fx="rise" data-fx-delay={i * 0.08}>
+              <span className="meta text-[var(--lime)]">Permitted</span>
+              <p className="mt-3 text-[19px] leading-snug">{t}</p>
             </div>
           ))}
         </div>
 
-        <p className="body mx-auto mt-8 max-w-[560px] text-[var(--paper)]/75" data-fx="rise">
-          You just can&apos;t unload your entire position into everyone else at once.
-        </p>
 
-        <div className="mx-auto mt-14 w-full max-w-[420px]" data-fx="slam" data-fx-delay="0.1">
-          <div className="polaroid rotate-[-4deg]">
-            <img src="/art/say-sell-again.webp" alt="Say sell again." width={1600} height={900} className="photo block aspect-[16/10] w-full object-cover" loading="lazy" />
-            <p className="scrawl mt-3 text-left text-[26px]">exhibit: &ldquo;say sell again&rdquo;</p>
+        <div className="mt-24 grid items-center gap-14 lg:grid-cols-[1.1fr_1fr] lg:gap-20">
+          <figure className="m-0">
+            <div className="vf overflow-hidden" data-fx="img">
+              <span className="vf__b" />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/art/say-sell-again.webp" alt="Say sell again." className="block aspect-[16/10] w-full object-cover" loading="lazy" />
+            </div>
+            <figcaption className="meta mt-4 flex justify-between opacity-60">
+              <span>Exhibit: &ldquo;say sell again&rdquo;</span>
+              <span>Room 3</span>
+            </figcaption>
+          </figure>
+          <div>
+            <p className="display h-l" data-fx="lines">
+              Selling is allowed.
+              <br />
+              <span className="text-[var(--red)]">Dumping isn&apos;t.</span>
+            </p>
+            <div className="mt-12 flex flex-wrap items-center gap-5">
+              <span className="meta opacity-60" data-fx="rise">Welcome to:</span>
+              <span className="stamp stamp--lime !text-[20px] sm:!text-[26px]" data-fx="stamp" data-rot="-4" data-fx-delay="0.3">
+                The anti-jeet meta
+              </span>
+            </div>
           </div>
-        </div>
-
-        <p className="f-comic mt-14 text-[44px] leading-[0.95] sm:text-[72px]" data-fx="slam">
-          Selling is allowed.
-          <br />
-          <span className="text-[var(--orange)]">Dumping isn&apos;t.</span>
-        </p>
-
-        <div className="mt-16 flex flex-col items-center gap-4">
-          <span className="label text-[var(--paper)]/60" data-fx="rise">Welcome to:</span>
-          <span className="stamp stamp--cyan stamp--double !text-[26px] sm:!text-[40px]" data-fx="stamp" data-rot="-6" data-fx-delay="0.2">
-            The <span className="whitespace-nowrap">anti-jeet</span> meta
-          </span>
         </div>
       </div>
     </section>

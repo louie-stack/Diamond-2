@@ -1,62 +1,103 @@
-/** The spinning-newspaper beat. Lands between the hero and chapter one. */
+import { tornTop, tornBottom } from "./Rip";
+
+/** Stop the presses. A broadsheet front page on a wall of other people's bad days. */
 export default function Newspaper() {
   return (
-    <section className="relative overflow-hidden bg-[#14110f] py-20 lg:py-28">
-      <div className="scan pointer-events-none absolute inset-0" />
-      <div className="relative mx-auto max-w-[1100px] px-4 sm:px-6">
-        <p className="label text-center text-[var(--mustard)]" data-fx="rise">
-          Stop the presses.
-        </p>
+    <section className="press !py-[clamp(96px,8vw,130px)]">
+      <div className="press__fiber" style={{ clipPath: tornTop(7, 4) }} aria-hidden="true" />
+      <div className="press__fiber" style={{ clipPath: tornBottom(11, 4) }} aria-hidden="true" />
+      <div className="press__bg" style={{ clipPath: tornTop(7, 0) }} aria-hidden="true">
+        <div className="absolute inset-0" style={{ clipPath: tornBottom(11, 0) }}>
+          {/* the clippings wall, pre-rendered to one image so scrolling stays smooth */}
+          <picture>
+            <source media="(max-width: 767px)" srcSet="/art/case/press-wall-m.webp" />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/art/case/press-wall.webp" alt="" className="absolute inset-0 h-full w-full object-cover" />
+          </picture>
+          <div className="absolute inset-0 bg-[radial-gradient(50%_55%_at_50%_50%,rgba(10,9,6,0.9),rgba(10,9,6,0.74)_60%,rgba(10,9,6,0.7)_100%)]" />
+        </div>
+      </div>
 
-        <div className="paper relative mx-auto mt-10 max-w-[900px] px-6 pb-10 pt-6 text-[var(--ink)] sm:px-10" data-fx="spin">
-          <span className="stamp stamp--paper stamp--double absolute -right-3 -top-4 z-[2] !text-[16px] sm:-right-6 sm:-top-5 sm:!text-[22px]" style={{ transform: "rotate(12deg)" }}>
-            Late edition
-          </span>
+      <div className="wrap relative">
+        <article className="paper" data-fx="rise">
+          <span className="paper__stain" aria-hidden="true" />
+
+          {/* top strip */}
+          <div className="flex items-center justify-between gap-4 pb-2">
+            <span className="meta !text-[10px]">Vol. I, No. 1</span>
+            <span className="paper__extra">Extra</span>
+            <span className="meta !text-[10px]">Price: 0% tax</span>
+          </div>
 
           {/* masthead */}
-          <div className="flex items-end justify-between gap-4 border-b-[3px] border-[var(--ink)] pb-3">
-            <span className="f-type hidden text-[11px] uppercase tracking-[0.14em] sm:block">Vol. I, No. 1</span>
-            <h3 className="f-slab text-center text-[34px] uppercase leading-none tracking-tight sm:text-[54px]">The Daily Chart</h3>
-            <span className="f-type hidden text-[11px] uppercase tracking-[0.14em] sm:block">Price: 0% tax</span>
-          </div>
-          <div className="mt-[3px] flex justify-between border-b border-[var(--ink)] py-1">
-            <span className="f-type text-[11px] uppercase tracking-[0.14em]">2026. Morning edition.</span>
-            <span className="f-type text-[11px] uppercase tracking-[0.14em]">Weather: volatile</span>
+          <header className="border-y-[3px] border-double border-[var(--ink)] py-3 text-center">
+            <h3 className="display paper__mast">The Daily Chart</h3>
+          </header>
+          <div className="flex flex-wrap justify-between gap-x-6 gap-y-1 border-b border-[var(--ink)] py-1.5">
+            <span className="meta !text-[10px]">2026. Morning edition.</span>
+            <span className="meta hidden !text-[10px] sm:inline">All the news that holds</span>
+            <span className="meta !text-[10px]">Weather: volatile</span>
           </div>
 
-          {/* headline */}
-          <h4 className="poster poster--flat mt-8 text-center text-[52px] sm:text-[84px] lg:text-[104px]">Jeeting outlawed</h4>
-          <p className="f-cond mt-4 text-center text-[19px] font-bold uppercase leading-tight tracking-[0.04em] sm:text-[24px]">
-            Smart contract caps every wallet at 1% per day. Whales furious. Everyone else: relieved.
-          </p>
+          {/* the splash */}
+          <div className="relative mt-7">
+            <h4 className="display paper__head">Jeeting outlawed</h4>
+            <p className="paper__deck">Smart contract caps every wallet at 1% per day. Whales furious. Everyone else: relieved.</p>
+          </div>
 
-          <div className="mt-8 grid gap-6 border-t-[3px] border-double border-[var(--ink)] pt-6 sm:grid-cols-3">
-            <p className="f-type text-[14px] leading-[1.55] [text-align:justify]">
-              <span className="f-slab float-left mr-2 mt-[2px] text-[52px] leading-[0.8]">I</span>n a move whales are calling
-              &ldquo;unfair&rdquo; and everyone else is calling &ldquo;about time&rdquo;, a memecoin has written diamond hands
-              directly into its contract. Every wallet gets one successful non-zero outbound transaction per rolling 24
-              hours, capped at 1% of its holdings. Buying is unrestricted. The first sell is available immediately.
-            </p>
-            <figure className="border-[3px] border-[var(--ink)] p-1">
-              <img
-                src="/art/boxing.webp"
-                alt="A bear on the canvas after trying to dump."
-                width={1200}
-                height={1400}
-                className="block aspect-[4/5] w-full object-cover object-top grayscale contrast-[1.15]"
-                loading="lazy"
-              />
-              <figcaption className="f-type mt-2 px-1 pb-1 text-[11px] uppercase leading-snug tracking-[0.08em]">
-                A bear, moments after trying to dump. Photo: staff.
-              </figcaption>
+          {/* the page */}
+          <div className="paper__grid">
+            <figure className="paper__lead">
+              <div className="paper__photo">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/art/boxing.webp" alt="A bear on the canvas after trying to dump." width={1200} height={1500} loading="lazy" />
+              </div>
+              <figcaption className="meta mt-2 !text-[9.5px] !tracking-[0.1em] opacity-70">A bear, moments after trying to dump. Photo: staff.</figcaption>
             </figure>
-            <p className="f-type text-[14px] leading-[1.55] [text-align:justify]">
-              Selling remains legal. Dumping does not. Asked whether the rule could be changed later, the contract declined
-              to comment, on the grounds that it has no owner switch, no whitelist and no adjustable limit. &ldquo;Once
-              live, the mechanism is the mechanism,&rdquo; it said. Full story, page 3. Tokenomics, page 9.
-            </p>
+
+            <div className="paper__col">
+              <p className="paper__body">
+                <span className="paper__drop">I</span>n a move whales are calling &ldquo;unfair&rdquo; and everyone else is calling &ldquo;about
+                time&rdquo;, a memecoin has written diamond hands directly into its contract. Every wallet gets one successful non-zero
+                outbound transaction per rolling 24 hours, capped at 1% of its holdings. Buying is unrestricted. The first sell is
+                available immediately.
+              </p>
+              <blockquote className="paper__quote">&ldquo;Once live, the mechanism is the mechanism.&rdquo;</blockquote>
+              <p className="paper__body">
+                Selling remains legal. Dumping does not. Asked whether the rule could be changed later, the contract declined to
+                comment, on the grounds that it has no owner switch, no whitelist and no adjustable limit. Full story, page 3.
+                Tokenomics, page 9.
+              </p>
+            </div>
+
+            <aside className="paper__side">
+              <div className="paper__box">
+                <p className="meta !text-[10px]">Markets</p>
+                <dl className="mt-2 space-y-1.5">
+                  {[["Max outbound", "1%"], ["Cooldown", "24h"], ["Tax", "0%"], ["Team tokens", "0%"]].map(([k, v]) => (
+                    <div key={k} className="flex items-baseline justify-between gap-3 border-b border-dotted border-[var(--ink)]/40 pb-1">
+                      <dt className="text-[12px]">{k}</dt>
+                      <dd className="display text-[22px] leading-none">{v}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+              <div className="paper__wanted">
+                <p className="display text-center text-[26px] leading-none">Wanted</p>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/art/case/lineup.webp" alt="The usual suspects." loading="lazy" />
+                <p className="mt-1.5 text-center text-[11px] font-semibold uppercase tracking-[0.06em]">Whale. KOL. Sniper. Dev.</p>
+              </div>
+            </aside>
           </div>
-        </div>
+
+          {/* index */}
+          <div className="mt-7 flex flex-wrap items-center justify-between gap-3 border-t-[3px] border-double border-[var(--ink)] pt-3">
+            {["Inside", "The 1% rule, p.3", "Whales, p.5", "The interrogation, p.7", "Tokenomics, p.9"].map((t, i) => (
+              <span key={t} className={`meta !text-[10px] ${i === 0 ? "bg-[var(--ink)] px-2 py-0.5 text-[var(--paper)]" : ""}`}>{t}</span>
+            ))}
+          </div>
+        </article>
       </div>
     </section>
   );

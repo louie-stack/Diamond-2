@@ -1,28 +1,27 @@
 import type { Metadata } from "next";
-import { Alfa_Slab_One, Bangers, Special_Elite, Barlow_Condensed, Caveat } from "next/font/google";
+import { Big_Shoulders, Geist, IBM_Plex_Mono, Share_Tech_Mono } from "next/font/google";
 import "./globals.css";
 
-const slab = Alfa_Slab_One({ weight: "400", subsets: ["latin"], variable: "--font-slab", display: "swap" });
-const comic = Bangers({ weight: "400", subsets: ["latin"], variable: "--font-comic", display: "swap" });
-const type = Special_Elite({ weight: "400", subsets: ["latin"], variable: "--font-type", display: "swap" });
-const hand = Caveat({ weight: ["500", "700"], subsets: ["latin"], variable: "--font-hand", display: "swap" });
-const cond = Barlow_Condensed({ weight: ["500", "700", "900"], subsets: ["latin"], variable: "--font-cond", display: "swap" });
+const display = Big_Shoulders({ weight: ["700", "800", "900"], subsets: ["latin"], variable: "--font-display", display: "swap" });
+const sans = Geist({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
+const term = Share_Tech_Mono({ weight: "400", subsets: ["latin"], variable: "--font-term", display: "swap" });
+const mono = IBM_Plex_Mono({ weight: ["400", "500", "600"], subsets: ["latin"], variable: "--font-mono", display: "swap" });
 
 export const metadata: Metadata = {
   title: "$DIAMOND. The world's first anti-jeet memecoin.",
   description:
     "You can sell. You just can't jeet. Every wallet gets one outbound transaction per rolling 24 hours, capped at 1% of its holdings. Diamond hands, enforced by code.",
-  icons: { icon: "/favicon.svg" },
+  icons: { icon: "/favicon.png" },
   openGraph: {
     title: "$DIAMOND. Diamond hands, enforced by code.",
     description: "The world's first anti-jeet memecoin. You can sell. You just can't jeet.",
-    images: ["/art/briefcase.png"],
+    images: ["/art/case/banner.webp"],
   },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${slab.variable} ${comic.variable} ${type.variable} ${cond.variable} ${hand.variable}`}>
+    <html lang="en" className={`${display.variable} ${sans.variable} ${mono.variable} ${term.variable}`}>
       <body>{children}</body>
     </html>
   );

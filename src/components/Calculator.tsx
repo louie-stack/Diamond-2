@@ -4,7 +4,7 @@ import { useState } from "react";
 
 const fmt = (n: number) => n.toLocaleString("en-US", { maximumFractionDigits: 0 });
 
-/** The detective's calculator. Type a bag, get the max next outbound. */
+/** Type a bag, get the max next outbound. */
 export default function Calculator() {
   const [raw, setRaw] = useState("1,000,000");
   const n = Number(raw.replace(/[^0-9.]/g, "")) || 0;
@@ -13,12 +13,16 @@ export default function Calculator() {
   const pct = n > 0 ? (max / supply) * 100 : 0;
 
   return (
-    <div className="panel !bg-[var(--manila)] px-6 py-8 text-center sm:px-12">
-      <span className="label opacity-70">Worked example. Try your own bag.</span>
-      <p className="f-comic mt-3 text-[34px] leading-none sm:text-[42px]">Hold how much $DIAMOND?</p>
-      <div className="mx-auto mt-5 max-w-[360px]">
+    <div className="vf grid border border-[var(--line-d)] lg:grid-cols-2">
+      <span className="vf__b" />
+      <div className="border-b border-[var(--line-d)] p-8 sm:p-12 lg:border-b-0 lg:border-r">
+        <p className="meta opacity-50">Worked example. Try your own bag.</p>
+        <label htmlFor="bag" className="display mt-5 block text-[clamp(40px,4vw,64px)] leading-[1]">
+          Hold how much $DIAMOND?
+        </label>
         <input
-          className="type-input text-center"
+          id="bag"
+          className="field mt-10 text-[var(--bone)]"
           inputMode="numeric"
           value={raw}
           onChange={(e) => {
@@ -26,16 +30,17 @@ export default function Calculator() {
             setRaw(v ? fmt(Math.min(v, supply)) : "");
           }}
           placeholder="1,000,000"
-          aria-label="Your $DIAMOND balance"
         />
       </div>
-      <p className="type mt-6">Maximum next outbound:</p>
-      <p className="poster poster--flat mt-2 text-[48px] sm:text-[80px]" aria-live="polite">
-        {fmt(max)}
-      </p>
-      <p className="label mt-3">
-        $DIAMOND. {pct > 0 ? `${pct.toFixed(pct < 0.001 ? 5 : 3)}% of supply.` : "Type a number."} Then the clock starts.
-      </p>
+      <div className="flex flex-col justify-between p-8 sm:p-12">
+        <p className="meta opacity-50">Maximum next outbound:</p>
+        <p className="display mt-6 break-all text-[clamp(64px,8vw,128px)] leading-[0.85] text-[var(--lime)] tabular-nums" aria-live="polite">
+          {fmt(max)}
+        </p>
+        <p className="meta mt-6 opacity-60">
+          $DIAMOND. {pct > 0 ? `${pct.toFixed(pct < 0.001 ? 5 : 3)}% of supply.` : "Type a number."} Then the clock starts.
+        </p>
+      </div>
     </div>
   );
 }
