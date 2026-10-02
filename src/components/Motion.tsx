@@ -91,7 +91,8 @@ export default function Motion() {
       });
 
       gsap.utils.toArray<HTMLElement>("[data-fx='type']").forEach((el) => {
-        const split = SplitText.create(el, { type: "chars" });
+        // words keep their letters together, so a line never wraps mid-word on a phone
+        const split = SplitText.create(el, { type: "words,chars" });
         splits.push(split);
         gsap.set(split.chars, { opacity: 0 });
         gsap.to(split.chars, { opacity: 1, duration: 0.01, stagger: 0.022, ease: "none", delay: delayOf(el) + 0.2, scrollTrigger: trig(el) });

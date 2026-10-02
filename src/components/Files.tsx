@@ -5,6 +5,7 @@ import MemeWall from "./MemeWall";
 import SceneBg from "./SceneBg";
 import SecHead, { Idx } from "./SecHead";
 import Rip from "./Rip";
+import RainWindow from "./footer/RainWindow";
 
 /* ---------------------------------------------------------------- */
 /* 05. No tricks. A declassified dossier.                             */
@@ -58,7 +59,7 @@ export function Declassified() {
             </div>
 
             <div className="relative">
-              <span className="stamp pointer-events-none absolute right-0 top-8 !text-[18px] sm:!text-[26px]" data-fx="stamp" data-rot="-10" data-fx-delay="0.3">
+              <span className="stamp pointer-events-none absolute right-0 top-8 !text-[18px] max-sm:-top-10 max-sm:!text-[15px] sm:!text-[26px]" data-fx="stamp" data-rot="-10" data-fx-delay="0.3">
                 Declassified
               </span>
               <h2 className="display h-m mt-12 max-w-[780px] pr-24" data-fx="lines">The rules apply to everyone.</h2>
@@ -94,7 +95,7 @@ export function Declassified() {
             </ul>
 
             <div className="mt-12 border border-dashed border-[var(--ink)]/30 p-6" data-fx="rise">
-              <p className="meta opacity-50">Owner privileges on file. Hover to unredact.</p>
+              <p className="meta opacity-50">Owner privileges on file. <span className="max-sm:hidden">Hover</span><span className="sm:hidden">Tap</span> to unredact.</p>
               <dl className="mono mt-4 grid gap-3 text-[14px] sm:grid-cols-2">
                 {[
                   ["Adjustable sell limit", "None. Fixed at 1%."],
@@ -206,11 +207,11 @@ export function Locker() {
       <div className="wrap relative">
         <SecHead n="08" label="Evidence locker" title="Simple on purpose." aside="Eight tags. Nothing hidden behind any of them." />
 
-        <div className="mt-16 grid border-l border-t border-[var(--line-d)] sm:grid-cols-2 lg:mt-20 lg:grid-cols-4">
+        <div className="mt-16 grid border-l border-t border-[var(--line-d)] max-sm:mt-12 max-sm:grid-cols-2 sm:grid-cols-2 lg:mt-20 lg:grid-cols-4">
           {TOKENOMICS.map((t, i) => (
             <div
               key={t.k}
-              className="group flex min-h-[230px] flex-col justify-between border-b border-r border-[var(--line-d)] p-7 transition-colors duration-500 hover:bg-[var(--lime)] hover:text-[var(--ink)] sm:p-8"
+              className={`group flex min-h-[230px] flex-col justify-between border-b border-r border-[var(--line-d)] p-7 transition-colors duration-500 hover:bg-[var(--lime)] hover:text-[var(--ink)] max-sm:min-h-[150px] max-sm:p-5 sm:p-8 ${i === 0 || i === TOKENOMICS.length - 1 ? "max-sm:col-span-2" : ""}`}
               data-fx="rise"
               data-fx-delay={(i % 4) * 0.06}
             >
@@ -219,10 +220,10 @@ export function Locker() {
                 <span className="meta opacity-30">{String(i + 1).padStart(2, "0")}</span>
               </div>
               <div>
-                <p className={`display mt-8 leading-none tabular-nums ${t.v.length > 8 ? "text-[clamp(36px,3vw,46px)]" : "text-[clamp(64px,6vw,96px)]"}`}>
+                <p className={`display mt-8 leading-none tabular-nums max-sm:mt-5 ${t.v.length > 8 ? "text-[clamp(36px,3vw,46px)]" : "text-[clamp(64px,6vw,96px)] max-sm:text-[46px]"}`}>
                   {i === 0 ? <span data-count="1000000000">{t.v}</span> : t.v}
                 </p>
-                <p className="body-s mt-3 opacity-60">{t.s}</p>
+                <p className="body-s mt-3 opacity-60 max-sm:mt-2 max-sm:text-[13px] max-sm:leading-snug">{t.s}</p>
               </div>
             </div>
           ))}
@@ -304,65 +305,120 @@ export function Surveillance() {
 }
 
 /* ---------------------------------------------------------------- */
-/* Footer.                                                             */
+/* Footer. One 12-column grid: every row below lines up with the       */
+/* columns above it.                                                   */
 /* ---------------------------------------------------------------- */
+const FOOT = [
+  {
+    n: "01",
+    title: "The file",
+    links: [
+      { label: "Teaser", href: "#teaser" },
+      { label: "The 1% rule", href: "#rule" },
+      { label: "Why Diamond", href: "#why" },
+      { label: "Tokenomics", href: "#tokenomics" },
+    ],
+  },
+  {
+    n: "02",
+    title: "On chain",
+    links: [
+      { label: "Contract", href: LINKS.contract, ext: true },
+      { label: "DexScreener", href: LINKS.dexscreener, ext: true },
+      { label: "LP lock", href: LINKS.lpLock, ext: true },
+    ],
+  },
+  {
+    n: "03",
+    title: "Socials",
+    links: [
+      { label: "X", href: LINKS.x, ext: true },
+      { label: "Telegram", href: LINKS.telegram, ext: true },
+    ],
+  },
+];
+
+const Ext = () => (
+  <svg viewBox="0 0 10 10" className="foot-link__ext" aria-hidden="true">
+    <path d="M2 8L8 2M3.5 2H8v4.5" fill="none" stroke="currentColor" strokeWidth="1.3" />
+  </svg>
+);
+
 export function Footer() {
   return (
-    <footer className="relative overflow-hidden bg-[var(--night)] pt-24">
+    <footer className="foot relative bg-[var(--night)] pt-[clamp(96px,10vw,152px)]">
+      <Rip color="var(--paper)" seed={41} inside />
       <div className="wrap">
-        <div className="grid gap-14 border-b border-[var(--line-d)] pb-16 lg:grid-cols-[1.2fr_1fr]">
-          <div>
-            <div className="flex items-center gap-4">
+        <div className="grid gap-y-16 lg:grid-cols-12 lg:gap-x-[var(--gut)]">
+          <div className="lg:col-span-5" data-fx="rise">
+            <a href="#top" className="inline-flex items-center gap-3.5" aria-label="Diamond Hands, back to top">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/art/case/logo.png" alt="" className="h-14 w-14" />
-              <span className="display text-[40px] leading-none">$DIAMOND</span>
-            </div>
-            <p className="term mt-6 text-[clamp(17px,1.5vw,21px)] text-[var(--bone)]/85"><span className="text-[var(--lime)]">&gt;</span> You can sell. You just can&apos;t jeet.</p>
-          </div>
-          <div className="grid grid-cols-2 gap-8 sm:grid-cols-3">
-            <div>
-              <p className="meta opacity-40">The file</p>
-              <ul className="mt-4 space-y-2.5 text-[15px]">
-                <li><a href="#rule" className="link-u">The 1% rule</a></li>
-                <li><a href="#why" className="link-u">Why Diamond</a></li>
-                <li><a href="#tokenomics" className="link-u">Tokenomics</a></li>
-              </ul>
-            </div>
-            <div>
-              <p className="meta opacity-40">On chain</p>
-              <ul className="mt-4 space-y-2.5 text-[15px]">
-                <li><a href={LINKS.contract} className="link-u">Contract</a></li>
-                <li><a href={LINKS.dexscreener} className="link-u">DexScreener</a></li>
-                <li><a href={LINKS.lpLock} className="link-u">LP lock</a></li>
-              </ul>
-            </div>
-            <div>
-              <p className="meta opacity-40">Socials</p>
-              <ul className="mt-4 space-y-2.5 text-[15px]">
-                <li><a href={LINKS.x} className="link-u">X</a></li>
-                <li><a href={LINKS.telegram} className="link-u">Telegram</a></li>
-              </ul>
+              <img src="/art/case/logo.png" alt="" className="h-11 w-11" />
+              <span className="display text-[30px] leading-none">$DIAMOND</span>
+            </a>
+            <p className="term mt-8 flex gap-[1ch] text-[clamp(19px,1.6vw,23px)] leading-[1.45] text-[var(--bone)]/85">
+              <span className="text-[var(--lime)]" aria-hidden="true">&gt;</span>
+              <span>
+                You can sell.
+                <br />
+                You just can&apos;t jeet.
+              </span>
+            </p>
+            <div className="mt-10 flex flex-wrap items-center gap-3">
+              <a href={LINKS.buy} className="btn btn--lime btn--sm">Buy $DIAMOND <span className="btn__arrow" aria-hidden="true" /></a>
+              <CopyCA short />
             </div>
           </div>
+
+          <nav aria-label="Footer" className="grid grid-cols-3 gap-x-4 sm:gap-x-[var(--gut)] lg:col-span-6 lg:col-start-7" data-fx="rise" data-fx-delay="0.08">
+            {FOOT.map((col) => (
+              <div key={col.n}>
+                <p className="meta flex items-center gap-2.5 text-[var(--bone)]/40">
+                  <span className="text-[var(--lime)]">{col.n}</span>
+                  {col.title}
+                </p>
+                <ul className="mt-6 space-y-3.5">
+                  {col.links.map((l) => (
+                    <li key={l.label}>
+                      <a
+                        href={l.href}
+                        className="foot-link"
+                        {...("ext" in l && l.href !== "#" ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                      >
+                        <span className="link-u">{l.label}</span>
+                        {"ext" in l && <Ext />}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </nav>
         </div>
-        <div className="grid gap-8 py-10 lg:grid-cols-[1.2fr_1fr]">
-          <p className="max-w-[640px] text-[13px] leading-relaxed text-[var(--bone)]/45">
+
+        <div className="mt-[clamp(72px,8vw,120px)] grid gap-y-10 border-t border-[var(--line-d)] pt-8 lg:grid-cols-12 lg:gap-x-[var(--gut)]">
+          <p className="max-w-[560px] text-[13px] leading-[1.65] text-[var(--bone)]/42 lg:col-span-5">
             $DIAMOND is a memecoin and experimental token mechanism. Cryptocurrency is volatile and involves substantial risk.
             The anti-jeet mechanism restricts the rate at which individual addresses can move $DIAMOND; it does not guarantee
             price stability, liquidity, profitability, or protection against market losses.
           </p>
-          <div className="meta flex flex-col gap-2 text-[var(--bone)]/40 lg:items-end">
-            <span>© 2026 Diamond Hands. Case file No. 001.</span>
-            <span>End of file. Hold the line.</span>
+          <div className="meta grid content-start items-start grid-cols-2 gap-x-4 gap-y-3 text-[var(--bone)]/45 sm:grid-cols-3 sm:gap-x-[var(--gut)] lg:col-span-6 lg:col-start-7">
+            <span>© 2026 Diamond Hands</span>
+            <span className="max-sm:order-3">Case file No. 001</span>
+            <a href="#top" className="foot-top justify-self-end sm:justify-self-start">
+              Back to top
+              <svg viewBox="0 0 10 12" aria-hidden="true"><path d="M5 11V1.5M1.5 5L5 1.5 8.5 5" fill="none" stroke="currentColor" strokeWidth="1.3" /></svg>
+            </a>
           </div>
         </div>
+
+        <div className="meta mt-[clamp(64px,7vw,104px)] flex justify-between pb-5 text-[var(--bone)]/35">
+          <span className="flex items-center gap-2.5"><span className="foot-dot" aria-hidden="true" />End of file</span>
+          <span className="hidden sm:inline">Wipe the glass</span>
+          <span className="sm:hidden">Swipe the glass</span>
+        </div>
       </div>
-      <p
-        className="display pointer-events-none select-none whitespace-nowrap text-center text-[23vw] leading-[0.78] text-transparent [-webkit-text-stroke:1px_rgba(204,255,0,0.22)]"
-        aria-hidden="true"
-      >
-        $DIAMOND
-      </p>
+      <RainWindow />
     </footer>
   );
 }

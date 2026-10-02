@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { CA, CA_SHORT } from "@/content";
 
-export default function CopyCA({ center = false }: { center?: boolean }) {
+export default function CopyCA({ center = false, short = false }: { center?: boolean; short?: boolean }) {
   const [copied, setCopied] = useState(false);
   const copy = async () => {
     try {
@@ -21,8 +21,8 @@ export default function CopyCA({ center = false }: { center?: boolean }) {
     >
       <span className="meta text-[var(--lime)]">CA</span>
       <code className="mono truncate text-[13px] text-[var(--bone)]/75">
-        <span className="hidden md:inline">{CA}</span>
-        <span className="md:hidden">{CA_SHORT}</span>
+        <span className={short ? "hidden" : "hidden md:inline"}>{CA}</span>
+        <span className={short ? "" : "md:hidden"}>{CA_SHORT}</span>
       </code>
       <span className={`meta shrink-0 border-l border-[var(--line-d)] pl-3 ${copied ? "text-[var(--lime)]" : "text-[var(--bone)]/45 group-hover:text-[var(--bone)]"}`}>
         {copied ? "Copied" : "Copy"}

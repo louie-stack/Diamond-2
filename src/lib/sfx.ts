@@ -6,6 +6,7 @@
  *   flip  - a sheet of paper turning
  *   ching - a sale going through
  *   buzz  - denied
+ *   hum   - a neon sign buzzing on
  */
 let ctx: AudioContext | null = null;
 let on = false;
@@ -122,5 +123,9 @@ export const sfx = {
   },
   buzz() {
     tone(110, 95, 0.32, 0.22, "square");
+  },
+  hum() {
+    tone(120, 118, 0.55, 0.05, "sawtooth");
+    noise(0.04, 0.06, 1500, 6000);
   },
 };

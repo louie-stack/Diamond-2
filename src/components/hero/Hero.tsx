@@ -64,7 +64,8 @@ export default function Hero() {
     img.src = KEY_ART;
     img.onload = () => {
       if (!alive) return;
-      glass = createGlass(cv, img);
+      // phones: a thinner fog, so the character reads on a small screen (desktop keeps the defaults)
+      glass = createGlass(cv, img, window.innerWidth < 768 ? { rain: 0.6, fogDetail: 2 } : undefined);
       if (!glass) return;
       cv.style.opacity = "1";
       if (fallback.current) fallback.current.style.opacity = "0";

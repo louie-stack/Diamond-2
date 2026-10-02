@@ -138,7 +138,7 @@ export default function Sting() {
                 <p className="display mt-3 text-[clamp(48px,5vw,76px)] leading-none tabular-nums">{fmt(balance)}</p>
                 <p className="meta mt-2 opacity-50">$DIAMOND held</p>
               </div>
-              <div className="text-right">
+              <div className="text-right max-sm:text-left">
                 <p className="meta opacity-50">Max next outbound</p>
                 <p className="display mt-3 text-[clamp(48px,5vw,76px)] leading-none text-[var(--lime)] tabular-nums">{fmt(max)}</p>
                 <p className="meta mt-2 opacity-50">1% of current bag</p>

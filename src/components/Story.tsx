@@ -38,7 +38,7 @@ export function EvidenceBoard() {
           {EXHIBITS.map((e, i) => (
             <article
               key={e.tag}
-              className="group relative flex min-h-[440px] flex-col border-b border-r border-[var(--line-d)] p-7 transition-colors duration-500 hover:bg-[var(--night-3)] sm:p-8"
+              className="group relative flex min-h-[440px] flex-col border-b border-r border-[var(--line-d)] p-7 transition-colors duration-500 hover:bg-[var(--night-3)] max-sm:min-h-0 max-sm:p-6 sm:p-8"
               data-fx="rise"
               data-fx-delay={i * 0.08}
             >
@@ -46,8 +46,8 @@ export function EvidenceBoard() {
                 <span className="meta text-[var(--lime)]">{e.tag}</span>
                 <span className="display text-[44px] leading-none text-transparent [-webkit-text-stroke:1px_rgba(236,230,214,0.25)]">{e.mark}</span>
               </div>
-              <h3 className="display mt-10 whitespace-nowrap text-[clamp(26px,2.3vw,36px)]">{e.title}</h3>
-              <p className="display mt-5 text-[clamp(56px,4.6vw,76px)] font-bold leading-[0.9] text-[var(--lime)]">
+              <h3 className="display mt-10 whitespace-nowrap text-[clamp(26px,2.3vw,36px)] max-sm:mt-5">{e.title}</h3>
+              <p className="display mt-5 text-[clamp(56px,4.6vw,76px)] font-bold leading-[0.9] text-[var(--lime)] max-sm:mt-3">
                 {e.big === "∞" ? (
                   <svg viewBox="0 0 120 60" className="inline-block h-[0.62em] w-auto align-baseline" aria-label="Unlimited">
                     <path d="M60 30 C 46 8, 12 8, 12 30 C 12 52, 46 52, 60 30 C 74 8, 108 8, 108 30 C 108 52, 74 52, 60 30 Z" fill="none" stroke="currentColor" strokeWidth="9" />
@@ -56,7 +56,7 @@ export function EvidenceBoard() {
                   e.big
                 )}
               </p>
-              <div className="mt-auto space-y-3 pt-10">
+              <div className="mt-auto space-y-3 pt-10 max-sm:pt-6">
                 {e.lines.map((l) => (
                   <p key={l} className="body-s text-[var(--bone)]/70">{l}</p>
                 ))}
@@ -105,7 +105,7 @@ export function Wanted() {
               <p className="display mt-1 text-[30px] leading-none text-[var(--lime)]">5% of supply</p>
             </div>
           </figcaption>
-          <span className="stamp absolute -right-3 top-6 bg-[var(--bone)] !text-[16px] sm:!text-[20px]" data-fx="stamp" data-rot="8" data-fx-delay="0.6">
+          <span className="stamp absolute -right-3 top-6 bg-[var(--bone)] !text-[16px] max-sm:right-3 sm:!text-[20px]" data-fx="stamp" data-rot="8" data-fx-delay="0.6">
             Can&apos;t dump
           </span>
         </figure>

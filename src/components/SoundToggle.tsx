@@ -27,7 +27,7 @@ export default function SoundToggle() {
         <i />
         <i />
       </span>
-      Sound {on ? "on" : "off"}
+      <span className="sound-label">Sound {on ? "on" : "off"}</span>
     </button>
   );
 }

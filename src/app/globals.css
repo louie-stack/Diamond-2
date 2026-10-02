@@ -163,7 +163,7 @@ img { max-width: 100%; }
 .nav__link { position: relative; color: rgba(236, 230, 214, 0.7); transition: color 0.3s; }
 .nav__link:hover, .nav__link.is-active { color: var(--bone); }
 .nav__link.is-active::before { content: ""; position: absolute; left: -12px; top: 50%; width: 5px; height: 5px; background: var(--lime); transform: translateY(-50%); }
-.drawer { position: fixed; inset: 0; z-index: 65; background: var(--night); transform: translateY(-100%); transition: transform 0.6s var(--ease); }
+.drawer { position: fixed; inset: 0; z-index: 65; overflow-y: auto; overscroll-behavior: contain; background: var(--night); transform: translateY(-100%); transition: transform 0.6s var(--ease); }
 .drawer.is-open { transform: translateY(0); }
 .burger { width: 44px; height: 44px; display: grid; place-items: center; border: 1px solid var(--line-d); }
 @media (min-width: 1024px) { .burger { display: none; } }
@@ -497,3 +497,92 @@ img { max-width: 100%; }
 [data-parallax] { will-change: transform; backface-visibility: hidden; }
 .tape__track, .ticker__track, .memes__track { will-change: transform; }
 .rip--bottom { top: auto; bottom: -30px; transform: scaleY(-1); }
+
+/* ---------- footer ---------- */
+.foot-link { display: inline-flex; align-items: center; gap: 7px; font-size: 15px; line-height: 1.3; color: rgba(236, 230, 214, 0.78); transition: color 0.3s var(--ease); }
+.foot-link:hover { color: var(--bone); }
+.foot-link__ext { width: 9px; height: 9px; opacity: 0.4; transition: transform 0.35s var(--ease), opacity 0.3s, color 0.3s; }
+.foot-link:hover .foot-link__ext { opacity: 1; color: var(--lime); transform: translate(2px, -2px); }
+.foot-top { display: inline-flex; align-items: center; gap: 9px; transition: color 0.3s var(--ease); }
+.foot-top svg { width: 9px; height: 11px; transition: transform 0.35s var(--ease); }
+.foot-top:hover { color: var(--lime); }
+.foot-top:hover svg { transform: translateY(-3px); }
+.foot-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--lime); box-shadow: 0 0 0 0 rgba(204, 255, 0, 0.5); animation: foot-dot 2.4s ease-out infinite; }
+@keyframes foot-dot { 0% { box-shadow: 0 0 0 0 rgba(204, 255, 0, 0.45); } 70%, 100% { box-shadow: 0 0 0 7px rgba(204, 255, 0, 0); } }
+/* never taller than the screen: at the bottom of the page the whole window is in view */
+.rain-window { position: relative; height: clamp(460px, min(46vw, calc(100svh - 64px)), 760px); overflow: hidden; background: var(--night); touch-action: pan-y; -webkit-tap-highlight-color: transparent; }
+.rain-window__flat { display: none; }
+.rain-window.is-flat canvas { display: none; }
+.rain-window.is-flat .rain-window__flat { display: block; position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: blur(3px); }
+/* the window's top edge melts into the footer instead of cutting across it */
+.rain-window__blend { position: absolute; inset: 0 0 auto; height: 10%; pointer-events: none; background: linear-gradient(var(--night), rgba(8, 9, 6, 0)); }
+/* the detective's side of the window */
+.rw-frame { --jamb: clamp(10px, 1.3vw, 20px); position: absolute; inset: 0; pointer-events: none; box-shadow: inset 0 0 0 var(--jamb) #0a0a08, inset 0 0 0 calc(var(--jamb) + 1px) rgba(204, 255, 0, 0.1), inset 0 0 60px calc(var(--jamb) + 10px) rgba(0, 0, 0, 0.55); }
+.rw-blinds {
+  position: absolute; inset: 0 0 auto; height: 9%;
+  background: linear-gradient(rgba(0, 0, 0, 0) 60%, rgba(204, 255, 0, 0.05)), repeating-linear-gradient(#1b1a14 0 7px, #26241c 7px 8px, #0b0b08 8px 10px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.6);
+  /* pulled up: quick, eases into the stack */
+  transition: height 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.rw-blinds::after { content: ""; position: absolute; inset: auto 0 0; height: 9px; background: linear-gradient(#2a281f, #13120d); border-bottom: 1px solid rgba(204, 255, 0, 0.14); }
+/* let down: the slats fall open, and the street glows through the gaps */
+.rw-blinds.is-shut {
+  height: calc(100% - clamp(16px, 1.8vw, 26px));
+  background:
+    repeating-linear-gradient(transparent 0 13px, rgba(204, 255, 0, 0.16) 13px 14px, transparent 14px 18px),
+    repeating-linear-gradient(#24221a 0, #191811 6px, #0e0e0b 13px, rgba(8, 9, 6, 0.35) 13.5px 18px);
+  transition: height 1.15s cubic-bezier(0.55, 0, 0.35, 1.08);
+}
+.rw-cord { position: absolute; top: 0; right: calc(9% - 13px); z-index: 2; width: 28px; height: calc(9% + clamp(84px, 10vw, 146px)); padding: 0; border: 0; background: none; cursor: pointer; pointer-events: auto; -webkit-tap-highlight-color: transparent; }
+.rw-cord:focus-visible { outline-offset: 2px; }
+.rw-cord__line { position: absolute; top: 0; bottom: 12px; left: 50%; width: 1.5px; transform-origin: 50% 0; background: linear-gradient(#3a372b, #23211a); transition: transform 0.6s var(--ease); }
+.rw-cord__line::after { content: ""; position: absolute; bottom: -12px; left: -3px; width: 7.5px; height: 14px; border-radius: 3px 3px 5px 5px; background: #2b2920; box-shadow: inset 0 1px 0 rgba(204, 255, 0, 0.22); transition: background 0.3s; }
+.rw-cord:hover .rw-cord__line { animation: cord-sway 1.6s ease-in-out infinite; }
+.rw-cord:hover .rw-cord__line::after { background: #3d3a2c; box-shadow: inset 0 1px 0 rgba(204, 255, 0, 0.45), 0 0 10px rgba(204, 255, 0, 0.18); }
+.rw-cord .rw-cord__line.is-tugged, .rw-cord:hover .rw-cord__line.is-tugged { animation: cord-tug 0.7s cubic-bezier(0.3, 0.7, 0.3, 1); }
+@keyframes cord-tug { 0% { transform: translateY(0); } 25% { transform: translateY(16px); } 60% { transform: translateY(-3px) rotate(1.5deg); } 100% { transform: none; } }
+@keyframes cord-sway { 0%, 100% { transform: rotate(0); } 30% { transform: rotate(2.2deg); } 70% { transform: rotate(-1.6deg); } }
+.rw-hat { position: absolute; left: 7%; bottom: calc(clamp(16px, 1.8vw, 26px) - 4px); width: clamp(138px, 15vw, 225px); height: auto; filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.6)); }
+.rw-hat__crown { fill: #13120e; stroke: rgba(204, 255, 0, 0.22); stroke-width: 1.2; }
+.rw-hat__band { fill: #050504; }
+.rw-hat__brim { fill: #0f0e0b; stroke: rgba(204, 255, 0, 0.16); stroke-width: 1.2; }
+.rw-sill { position: absolute; inset: auto 0 0; height: clamp(16px, 1.8vw, 26px); background: linear-gradient(#1c1b14, #0a0a08); box-shadow: 0 -1px 0 rgba(204, 255, 0, 0.16), 0 -12px 22px rgba(0, 0, 0, 0.45); }
+@media (max-width: 639px) { .rw-hat { left: 5%; } }
+@media (prefers-reduced-motion: reduce) {
+  .foot-dot { animation: none; }
+  .rw-blinds, .rw-blinds.is-shut { transition-duration: 0.01s; }
+  .rw-cord__line, .rw-cord:hover .rw-cord__line { animation: none; }
+}
+
+/* ==========================================================================
+   Mobile pass. Everything below is scoped to small screens only, so the
+   desktop layout is untouched.
+   ========================================================================== */
+@media (max-width: 1023px) {
+  /* the grain layer is oversized for its drift; on phones that widened the
+     page. Keep it to the screen and drift the texture instead. */
+  .grain { inset: 0; animation-name: grain-m; }
+  html, body { overflow-x: clip; }
+}
+@keyframes grain-m {
+  0% { background-position: 0 0; } 33% { background-position: -7px 5px; } 66% { background-position: 5px -7px; } 100% { background-position: 0 0; }
+}
+@media (max-width: 767px) {
+  /* sound: a small round button, out of the way of the copy */
+  .sound-toggle { right: 12px; bottom: 12px; width: 40px; height: 40px; padding: 0; justify-content: center; border-radius: 50%; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+  .sound-toggle .sound-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .sound-bars { height: 12px; gap: 3px; }
+  .sound-bars i { width: 2.5px; }
+
+  /* 01, the crime: zoom into the business end of the chart and seat it
+     under the copy, so the screen has no dead band */
+  .cr-chartwrap { left: 0; right: 0; top: auto; bottom: max(10svh, 64px); height: auto; aspect-ratio: 1600 / 700; }
+  .cr-chart { transform: scale(1.6); transform-origin: 74% 60%; }
+  .cr-price { font-size: 40px; }
+  .cr-hud { left: var(--gut); top: -104px; }
+}
+@media (max-width: 767px) {
+  /* the rain window: a tall portrait pane on phones, so the street has room */
+  .rain-window { height: min(calc(100svh - 120px), 540px); }
+}
